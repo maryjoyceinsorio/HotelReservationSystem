@@ -1,91 +1,107 @@
-package reservationsystem;
-
+import java.awt.Font;
+import java.awt.event.*;
 import javax.swing.*;
 
-
-public class HotelReservation {
-   
-    HotelReservation(){
-        JFrame types = new JFrame("Types of room available.");
-        
-        types.setSize(1500, 2000);
-        
-        //room clickables
-        JButton room1 = new JButton("Single bed");
-        JButton room2 = new JButton("Double bed");
-        JButton room3 = new JButton("Balcony");
-        JButton room4 = new JButton("Triple bed");
-        JButton room5 = new JButton("Queen bed");
-        JButton room6 = new JButton("Royalty bed");
-        JButton room7 = new JButton("Queen's balcony");
-        JButton room8 = new JButton("Bunk beds");
-        
-        room1.setBounds(80, 130, 500, 30);
-        room2.setBounds(80, 330, 500, 30);
-        room3.setBounds(80, 530, 500, 30);
-        room4.setBounds(80, 730, 500, 30);
-        room5.setBounds(800, 130, 500, 30);
-        room6.setBounds(800, 330, 500, 30);
-        room7.setBounds(800, 530, 500, 30);
-        room8.setBounds(800, 730, 500, 30);
-        
-        //text head
-        JLabel textH = new JLabel("Room Types Available:");
-        JLabel textS = new JLabel ("Search:");
-        JTextField searchB = new JTextField ();
-        
-        textH.setBounds(10, 0, 300, 50);
-        textS.setBounds(10, 30, 300, 50);
-        searchB.setBounds(55, 45, 300, 20);
-        
-        //room descriptions
-        JLabel roomi1 = new JLabel("Standard Room Size, Single Bed");
-        JLabel roomi2 = new JLabel("Standard Room Size, Two Beds");
-        JLabel roomi3 = new JLabel("Standard Room Size, Two Beds, Balcony View");
-        JLabel roomi4 = new JLabel("Medium Room Size, Three Beds");
-        JLabel roomi5 = new JLabel("Medium Room Size, One Queen Sized Bed");
-        JLabel roomi6 = new JLabel("Medium Room Size, Two Queen Sized Beds");
-        JLabel roomi7 = new JLabel("Large Room Size, One Queen Sized Bed with Balcony View");
-        JLabel roomi8 = new JLabel("Medium Room Size, Two Medium Bunkbeds");
-        
-        roomi1.setBounds(80, 160, 200, 70);
-        roomi2.setBounds(80, 360, 200, 70);
-        roomi3.setBounds(80, 560, 500, 70);
-        roomi4.setBounds(80, 760, 200, 70);
-        roomi5.setBounds(800, 160, 500, 70);
-        roomi6.setBounds(800, 360, 500, 70);
-        roomi7.setBounds(800, 560, 500, 70);
-        roomi8.setBounds(800, 760, 500, 70);
-        
-        //adding
-        types.add(room1);
-        types.add(room2);
-        types.add(room3);
-        types.add(room4);
-        types.add(room5);
-        types.add(room6);
-        types.add(room7);
-        types.add(room8);
-        
-        types.add(roomi1);
-        types.add(roomi2);
-        types.add(roomi3);
-        types.add(roomi4);
-        types.add(roomi5);
-        types.add(roomi6);
-        types.add(roomi7);
-        types.add(roomi8);
-        
-        types.add(textH);
-        types.add(textS);
-        types.add(searchB);
-       
-        types.setLayout(null);
-        
-       
-        types.setVisible(true);
-        
-        types.setDefaultCloseOperation(types.EXIT_ON_CLOSE);
-    }
+public class reservation {
+  
+    private JFrame f = new JFrame("HOTEL RESERVATION");
+    private JLabel lblHOTELRESERVATIONFORM, lblGuestName, lblEmail, lblPhoneNumber, lblReservationDate, lblReservationTime, lblHowmanyPersonwillyoubewith;
+    private JTextField txtfldName = new JTextField();
+     private JTextField txtfldEmail = new JTextField();
+     private JTextField txtfldPhoneNumber = new JTextField();
+    private JTextField txtfldReservationDate = new JTextField();
+     private JTextField txtfldReservationTime = new JTextField();
+      private JTextField txtfldHowmanyPersonwillyoubewith = new JTextField();
+      private JButton btnSearch, btnDelete;
+      
+      reservation(){
+    f.setSize(500, 600);
+    f.setLayout(null);
+    f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+    
+    lblHOTELRESERVATIONFORM = new JLabel("HOTEL RESERVATION");
+    lblHOTELRESERVATIONFORM.setBounds(100, 30, 350, 60);
+    lblHOTELRESERVATIONFORM.setFont(new Font("Casterllar", Font.BOLD,20));
+    
+    lblGuestName = new JLabel("GuestName:");
+    lblGuestName.setBounds(20, 100, 120, 40);
+    lblGuestName.setFont(new Font("Casterllar", Font.BOLD,15));
+    
+    lblEmail = new JLabel("Email:");
+    lblEmail.setBounds(20, 160, 140, 40);
+    lblEmail.setFont(new Font("Casterllar", Font.BOLD,15));
+    
      
+    lblPhoneNumber = new JLabel("Phone Number:");
+    lblPhoneNumber.setBounds(20, 220, 140, 40);
+    lblPhoneNumber.setFont(new Font("Casterllar", Font.BOLD,15));
+    
+    
+    lblReservationDate = new JLabel("ReservationDate:");
+    lblReservationDate.setBounds(20, 280, 140, 40);
+    lblReservationDate.setFont(new Font("Casterllar", Font.BOLD,15));
+    
+     
+     
+    lblReservationTime = new JLabel("ReservationTime:");
+    lblReservationTime.setBounds(20, 340, 140, 40);
+    lblReservationTime.setFont(new Font("Casterllar", Font.BOLD,15));
+    
+    
+    lblHowmanyPersonwillyoubewith = new JLabel("How many Person will you be with:");
+    lblHowmanyPersonwillyoubewith.setBounds(20, 400, 500, 40);
+    lblHowmanyPersonwillyoubewith.setFont(new Font("Casterllar", Font.BOLD,15));
+    
+    btnSearch = new JButton("Search");
+    btnSearch.setBounds(350, 500, 100, 30);
+    btnSearch.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    btnDelete = new JButton("DELETE");
+    btnDelete.setBounds(20, 500, 100, 30);
+    btnDelete.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    
+            
+    
+    
+    txtfldName.setBounds(115, 110, 200,20);
+    txtfldName.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    txtfldEmail.setBounds(80, 170, 200,20);
+    txtfldEmail.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    txtfldPhoneNumber.setBounds(150, 230, 200,20);
+    txtfldPhoneNumber.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    txtfldReservationDate.setBounds(150, 290, 200,20);
+    txtfldReservationDate.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    txtfldReservationTime.setBounds(155, 350, 200,20);
+    txtfldReservationTime.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    txtfldHowmanyPersonwillyoubewith.setBounds(280, 410, 100,20);
+    txtfldHowmanyPersonwillyoubewith.setFont(new Font("Castellar", Font.PLAIN, 15));
+    
+    f.add(btnDelete);
+    f.add(btnSearch);
+    f.add(txtfldHowmanyPersonwillyoubewith);
+    f.add(lblHowmanyPersonwillyoubewith);
+    f.add(lblReservationTime);
+    f.add(txtfldReservationTime);
+    f.add(txtfldReservationDate);
+    f.add(lblReservationDate);
+    f.add(lblPhoneNumber);
+    f.add( lblEmail);
+    f.add(lblGuestName); 
+    f.add(txtfldName);
+    f.add(txtfldEmail);
+    f.add(txtfldPhoneNumber);
+    f.add(lblHOTELRESERVATIONFORM);
+     f.setVisible(true);
+    f.setResizable(false);
+        
+      }
+      
 }
+
+
