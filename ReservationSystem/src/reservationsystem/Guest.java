@@ -11,14 +11,14 @@ import javax.swing.JTextField;
 public class Guest  {
    
     private JFrame f = new JFrame("Welcome to Hotel Reservation System");
-    private JLabel  lblhotel,lblName, lbladdress, lblemail, lblContactNumber,lblcheckin, lblcheckout,  lblNextResult;
+    private JLabel  lblhotel,lblName, lbladdress, lblemail, lblContactNumber,lblin, lblout,  lblNextResult;
     
     private JTextField txtfldName = new JTextField();
     private JTextField txtfldaddress = new JTextField();
     private JTextField txtfldemail= new JTextField();
     private JTextField txtfldContactNumber = new JTextField();
-    private JTextField txtfldcheckin = new JTextField();
-    private JTextField txtfldcheckout = new JTextField();
+    private JTextField txtfldin = new JTextField();
+    private JTextField txtfldout = new JTextField();
     private JTextField txtfldNextResult = new JTextField();
     
     private JButton btnproceed;
@@ -57,19 +57,19 @@ public class Guest  {
        txtfldContactNumber.setBounds(120, 155, 250, 25);
        txtfldContactNumber.setFont(new Font("Arial", Font.PLAIN, 15));
        
-       lblcheckin = new JLabel("Check-In");
-       lblcheckin.setBounds(20, 180, 160, 30);
-       lblcheckin.setFont(new Font("Arial", Font.PLAIN, 13)); 
+       lblin = new JLabel("Check-In");
+       lblin.setBounds(20, 180, 160, 30);
+       lblin.setFont(new Font("Arial", Font.PLAIN, 13)); 
        
-       txtfldcheckin.setBounds(120, 185, 250, 25);
-       txtfldcheckin.setFont(new Font("Arial", Font.PLAIN, 15));
+       txtfldin.setBounds(120, 185, 250, 25);
+       txtfldin.setFont(new Font("Arial", Font.PLAIN, 15));
        
-       lblcheckout = new JLabel("Check-Out");
-       lblcheckout.setBounds(20, 210, 160, 30);
-       lblcheckout.setFont(new Font("Arial", Font.PLAIN, 13)); 
+       lblout = new JLabel("Check-Out");
+       lblout.setBounds(20, 210, 160, 30);
+       lblout.setFont(new Font("Arial", Font.PLAIN, 13)); 
        
-       txtfldcheckout.setBounds(120, 215, 250, 25);
-       txtfldcheckout.setFont(new Font("Arial", Font.PLAIN, 15));
+       txtfldout.setBounds(120, 215, 250, 25);
+       txtfldout.setFont(new Font("Arial", Font.PLAIN, 15));
        
        
        btnproceed = new JButton("Proceed");
@@ -98,10 +98,10 @@ public class Guest  {
        f.add(lblemail);
        f.add(txtfldContactNumber);
        f.add(lblContactNumber);
-       f.add(lblcheckin);
-       f.add(txtfldcheckin);
-       f.add(lblcheckout);
-       f.add(txtfldcheckout);
+       f.add(lblin);
+       f.add(txtfldin);
+       f.add(lblout);
+       f.add(txtfldout);
        f.add(txtareaNextResult);
        f.add(lblNextResult);
        
