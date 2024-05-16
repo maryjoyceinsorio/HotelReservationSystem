@@ -3,14 +3,12 @@ package reservationsystem;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 
-public class RoomService implements ActionListener {
+public class RoomService{
      private JLabel lblservice, lblbf, lblsalad, lblsnacks, lblbeve;
      private JFrame f = new JFrame("Room Service");
      private JButton  btnfullbf,btnbfbuffet, btncontibf, btnalacarte, btnclassic, btnturkey, btncaesar, 
@@ -104,7 +102,7 @@ public class RoomService implements ActionListener {
       btndrinks = new JButton("Soft Drinks");
       btndrinks.setBounds(180, 440, 140, 25);
       btndrinks.setFont(new Font("Arial", Font.PLAIN, 13));
-      btndrinks.addActionListener(this);
+      
       
        f.add(lblservice);
       f.add(lblbf);
@@ -130,12 +128,6 @@ public class RoomService implements ActionListener {
       
 f.setVisible(true);
       f.setResizable(false);
-      
     
-}
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

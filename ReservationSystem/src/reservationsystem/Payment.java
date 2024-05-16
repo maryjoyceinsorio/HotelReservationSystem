@@ -2,8 +2,6 @@
 package reservationsystem;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +9,7 @@ import javax.swing.JLabel;
 
 
 
-public class Payment implements ActionListener {
+public class Payment {
  private JLabel lblmethod;
  private JFrame f = new JFrame("Process Payment");
  private JButton btnCredit, btnQR, btnDebit, btnPaymaya;
@@ -43,7 +41,7 @@ public class Payment implements ActionListener {
      btnPaymaya= new JButton("Paymaya");
      btnPaymaya.setBounds(180, 150, 140, 25);
      btnPaymaya.setFont(new Font("Arial", Font.PLAIN,13));
-     btnPaymaya.addActionListener(this);
+     
      
   
      f.add(lblmethod);
@@ -55,9 +53,7 @@ public class Payment implements ActionListener {
      f.setResizable(false);
  }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
+ }
+    
+
 
