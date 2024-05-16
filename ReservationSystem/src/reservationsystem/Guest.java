@@ -17,8 +17,8 @@ public class Guest  {
     private JTextField txtfldaddress = new JTextField();
     private JTextField txtfldemail= new JTextField();
     private JTextField txtfldContactNumber = new JTextField();
-    private JTextField txtfldin = new JTextField();
-    private JTextField txtfldout = new JTextField();
+    private JTextField txtfldckin = new JTextField();
+    private JTextField txtfldckout = new JTextField();
     private JTextField txtfldNextResult = new JTextField();
     
     private JButton btnproceed;
@@ -57,19 +57,19 @@ public class Guest  {
        txtfldContactNumber.setBounds(120, 155, 250, 25);
        txtfldContactNumber.setFont(new Font("Arial", Font.PLAIN, 15));
        
-       lblicheckin = new JLabel("Check-In");
+       lblcheckin = new JLabel("Check-In");
        lblcheckin.setBounds(20, 180, 160, 30);
        lblcheckin.setFont(new Font("Arial", Font.PLAIN, 13)); 
        
-       txtfldin.setBounds(120, 185, 250, 25);
-       txtfldin.setFont(new Font("Arial", Font.PLAIN, 15));
+       txtfldckin.setBounds(120, 185, 250, 25);
+       txtfldckin.setFont(new Font("Arial", Font.PLAIN, 15));
        
        lblcheckout = new JLabel("Check-Out");
        lblcheckout.setBounds(20, 210, 160, 30);
        lblcheckout.setFont(new Font("Arial", Font.PLAIN, 13)); 
        
-       txtfldout.setBounds(120, 215, 250, 25);
-       txtfldout.setFont(new Font("Arial", Font.PLAIN, 15));
+       txtfldckout.setBounds(120, 215, 250, 25);
+       txtfldckout.setFont(new Font("Arial", Font.PLAIN, 15));
        
        
        btnproceed = new JButton("Proceed");
