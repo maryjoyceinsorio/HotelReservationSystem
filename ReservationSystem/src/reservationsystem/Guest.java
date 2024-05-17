@@ -98,10 +98,10 @@ public class Guest  {
        f.add(lblemail);
        f.add(txtfldContactNumber);
        f.add(lblContactNumber);
-       f.add(lblin);
-       f.add(txtfldin);
-       f.add(lblout);
-       f.add(txtfldout);
+       f.add(lblcheckin);
+       f.add(txtfldckin);
+       f.add(lblcheckout);
+       f.add(txtfldckout);
        f.add(txtareaNextResult);
        f.add(lblNextResult);
        
