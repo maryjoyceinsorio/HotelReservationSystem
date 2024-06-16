@@ -3,12 +3,14 @@ package reservationsystem;
 
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 
-public class RoomService{
+public class RoomService extends JFrame implements ActionListener{
      private JLabel lblservice, lblbf, lblsalad, lblsnacks, lblbeve;
      private JFrame f = new JFrame("Room Service");
      private JButton  btnfullbf,btnbfbuffet, btncontibf, btnalacarte, btnclassic, btnturkey, btncaesar, 
@@ -129,5 +131,11 @@ public class RoomService{
 f.setVisible(true);
       f.setResizable(false);
     
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        dispose();
+        
     }
 }

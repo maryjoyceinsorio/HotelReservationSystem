@@ -2,13 +2,15 @@
 package reservationsystem;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Guest  {
+public class Guest extends JFrame implements ActionListener {
    
     private JFrame f = new JFrame("Welcome to Hotel Reservation System");
     private JLabel  lblhotel,lblName, lbladdress, lblemail, lblContactNumber,lblcheckin, lblcheckout,  lblNextResult;
@@ -109,6 +111,11 @@ public class Guest  {
        f.setResizable(false);
        
        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        dispose();
     }
 
    

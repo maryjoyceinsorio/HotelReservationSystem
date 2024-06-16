@@ -5,6 +5,8 @@
  */
 package reservationsystem;
 
+import java.awt.EventQueue;
+
 /**
  *
  * @author user
@@ -17,7 +19,14 @@ public class Payment_Process {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Payment payment = new Payment();
+           EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+           
+                Payment payment = new Payment();
+                payment.setVisible(true);
+            }
+        });
     }
     
 }

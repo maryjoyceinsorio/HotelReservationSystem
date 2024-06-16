@@ -2,58 +2,98 @@
 package reservationsystem;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 
 
 
-public class Payment {
- private JLabel lblmethod;
- private JFrame f = new JFrame("Process Payment");
- private JButton btnCredit, btnQR, btnDebit, btnPaymaya;
+public class Payment extends JFrame implements ActionListener{
+ private JLabel lblname, lblamount, lblmethod;
+ private JButton btnprocess, btnreservation, btnback;
+ private JTextField txtname, txtamount;
+ private JComboBox<String>methodd;
+ 
  
  Payment(){
-     f.setSize(400, 350);
-     f.setLayout(null);
-     f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+     setTitle("Payment Process");
+     setSize(600, 450 );
+     setLayout(null);
+     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      
      
+     lblname = new JLabel("Name");
+     lblname.setBounds(100, 100, 100, 20);
+     lblname.setFont(new Font("Arial", Font.PLAIN, 15));
      
-     lblmethod = new JLabel("Select payment method");
-     lblmethod.setBounds(20, 70, 160, 30);
+     lblamount = new JLabel("amount");
+     lblamount.setBounds(100, 130, 150, 20);
+     lblamount.setFont(new Font("Arial", Font.PLAIN, 15));
+     
+     lblmethod = new JLabel("Select Payment Method");
+     lblmethod.setBounds(100, 200, 210, 20);
      lblmethod.setFont(new Font("Arial", Font.PLAIN, 15));
      
-     btnCredit= new JButton("Credit Card");
-     btnCredit.setBounds(20, 100, 140, 25);
-     btnCredit.setFont(new Font("Arial", Font.PLAIN,13));
+     txtname = new JTextField();
+     txtname.setBounds(200, 100, 200, 20);
+     txtname.setFont(new Font("Arial", Font.PLAIN, 15));
      
-     btnQR= new JButton("QR Code");
-     btnQR.setBounds(20, 150, 140, 25);
-     btnQR.setFont(new Font("Arial", Font.PLAIN,13));
+     txtamount = new JTextField();
+     txtamount.setBounds(200, 130, 200, 20);
+     txtamount.setFont(new Font("Arial", Font.PLAIN, 15));
      
-     btnDebit= new JButton("Debit Card");
-     btnDebit.setBounds(180, 100, 140, 25);
-     btnDebit.setFont(new Font("Arial", Font.PLAIN,13));
+     btnprocess= new JButton("Process");
+     btnprocess.setBounds(100, 300, 100, 20);
+     btnprocess.setFont(new Font("Arial", Font.PLAIN,13));
      
+     btnreservation= new JButton("Reservation");
+     btnreservation.setBounds(250, 300, 100, 20);
+     btnreservation.setFont(new Font("Arial", Font.PLAIN,13));
      
-     btnPaymaya= new JButton("Paymaya");
-     btnPaymaya.setBounds(180, 150, 140, 25);
-     btnPaymaya.setFont(new Font("Arial", Font.PLAIN,13));
+     btnback= new JButton("Service");
+      btnback.setBounds(400, 300, 100, 20);
+     btnback.setFont(new Font("Arial", Font.PLAIN,13));
      
+     btnback.addActionListener(this);
+     btnreservation.addActionListener(this);
      
-  
-     f.add(lblmethod);
-     f.add(btnCredit);
-     f.add(btnQR);
-     f.add(btnDebit);
-     f.add(btnPaymaya);
-     f.setVisible(true);
-     f.setResizable(false);
+     String[] pay = {"Debit", "Credit Card", "Paymaya", "GCash", "Paypal"};
+   methodd = new JComboBox<>(pay);
+   methodd.setBounds(300, 200, 150, 20);
+    methodd.addActionListener(this);
+     
+     add(lblname);
+     add(lblmethod);
+     add(lblamount);
+     add(lblmethod);
+     add(btnreservation);
+     add(btnback);
+     add(btnprocess);
+     add(txtname);
+     add(txtamount);
+     setVisible(true);
+     setResizable(false);
+     add(methodd);
  }
 
- }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        dispose();
+        if(e.getSource() == btnback){
+            RoomService rs = new RoomService();
+            rs.setVisible(true);
+        }else if(e.getSource() == btnreservation){
+            HotelReservation hr = new HotelReservation();
+            hr.setVisible(true);
+        }
+    }
+
+}
     
 
 
