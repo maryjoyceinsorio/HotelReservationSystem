@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package reservationsystem;
-
+import java.awt.EventQueue;
 /**
  *
  * @author Nieto
@@ -12,9 +12,15 @@ package reservationsystem;
 public class RoomTypesMain {
     
     
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         // TODO code application logic here
-        new RoomTypes();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Homepage hp = new Homepage();
+                hp.setVisible(true);
+            }
+        });
+    }
+    
 }
-}
-
