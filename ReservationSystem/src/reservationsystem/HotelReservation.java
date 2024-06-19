@@ -1,8 +1,10 @@
+package reservationsystem;
+
 import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class reservation {
+public class HotelReservation {
   
     private JFrame f = new JFrame("HOTEL RESERVATION");
     private JLabel lblHOTELRESERVATIONFORM, lblGuestName, lblEmail, lblPhoneNumber, lblReservationDate, lblReservationTime, lblHowmanyPersonwillyoubewith;
@@ -14,7 +16,7 @@ public class reservation {
       private JTextField txtfldHowmanyPersonwillyoubewith = new JTextField();
       private JButton btnSearch, btnDelete;
       
-      reservation(){
+      HotelReservation(){
     f.setSize(500, 600);
     f.setLayout(null);
     f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
