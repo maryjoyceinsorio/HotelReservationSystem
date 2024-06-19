@@ -25,7 +25,7 @@ public class Homepage extends JFrame implements ActionListener {
     
     Homepage(){
         setTitle("Home Page");
-        setSize(800, 700);
+        setSize(850, 700);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         

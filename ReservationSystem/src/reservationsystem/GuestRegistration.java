@@ -20,6 +20,7 @@ public class GuestRegistration extends JFrame implements ActionListener {
         setLayout(null);
         setSize(500, 400);
         setVisible(true);
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         
