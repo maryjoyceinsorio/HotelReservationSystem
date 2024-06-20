@@ -1,5 +1,6 @@
 package reservationsystem;
 
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +21,6 @@ public class GuestRegistration extends JFrame implements ActionListener {
         setLayout(null);
         setSize(500, 400);
         setVisible(true);
-        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         
@@ -82,7 +82,14 @@ public class GuestRegistration extends JFrame implements ActionListener {
         }
     }
     
-    public static void main(String[] args) {
-        new GuestRegistration();
+   public static void main(String[] args) {
+         EventQueue.invokeLater(new Runnable() {
+          
+
+             @Override
+             public void run() {
+                new GuestRegistration();
+             }
+        });
     }
 }

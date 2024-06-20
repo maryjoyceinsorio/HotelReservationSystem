@@ -13,14 +13,13 @@ public class Login extends JFrame implements ActionListener {
     private JLabel lbllog, lbluser, lblpass;
     private JTextField txtuser;
     private JPasswordField pass;
-    private JButton btnlogin, btnhome;
+    private JButton btnlogin, btnback;
     
     public Login(){
         setTitle("Guest LogIn");
         setLayout(null);
         setSize(600, 400);
         setVisible(true);
-       
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         
@@ -39,13 +38,11 @@ public class Login extends JFrame implements ActionListener {
         
         btnlogin = new JButton("Login");
         btnlogin.setBounds(200, 200, 100, 30);
-        btnhome = new JButton("Home");
-        btnhome.setBounds(320, 200, 100, 30);
-        
+        btnback = new JButton("Back");
+        btnback.setBounds(320, 200, 100, 30);
         
         btnlogin.addActionListener(this);
-        btnhome.addActionListener(this);
-      
+        btnback.addActionListener(this);
         
         add(lbllog);
         add(lbluser);
@@ -53,8 +50,7 @@ public class Login extends JFrame implements ActionListener {
         add(lblpass);
         add(pass);
         add(btnlogin);
-        add(btnhome);
-       
+        add(btnback);
     }
 
     @Override
@@ -62,34 +58,33 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource() == btnlogin) {
             String username = txtuser.getText();
             String password = new String(pass.getPassword());
-            
+
             if (validateLogin(username, password)) {
-              
-                JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-               
-            } else {
+                JOptionPane.showMessageDialog(this, "Login successful!");
                 
+                dispose(); 
+             
+                new Homepage().setVisible(true); 
+            } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            new GuestRegistration().setVisible(true);
+            
+            dispose();
             }
-        } else if (e.getSource() == btnhome) {
-            Homepage hp = new Homepage();
-            hp.setVisible(true);
-            dispose();
-          
-        } else if (e.getSource() == btnlogin) {
-           
-            dispose();
-            new GuestRegistration(); 
         }
     }
-    
+
     private boolean validateLogin(String username, String password) {
-        
-        return "user".equals(username) && "password".equals(password); 
+      
+        return "user".equals(username) && "password".equals(password);
     }
 
     public static void main(String[] args) {
-        new Login();
+        SwingUtilities.invokeLater(() -> {
+            new Login();
+        });
     }
 }
+
+
+   
