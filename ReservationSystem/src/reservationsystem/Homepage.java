@@ -50,14 +50,23 @@ public class Homepage extends JFrame implements ActionListener {
        
       
         RoomBtn.addActionListener(this);
+        PayBtn.addActionListener(this);
+        ServBtn.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         dispose();
-       
-            RoomTypes lp = new RoomTypes();
-            lp.setVisible(true);
+       if(e.getSource() == RoomBtn){
+            RoomTypes rt = new RoomTypes();
+            rt.setVisible(true);
+        }else if (e.getSource() == PayBtn) {
+            Payment payment = new Payment();
+            payment.setVisible(true);
+        }else if (e.getSource() == ServBtn) {
+            RoomService serv = new RoomService();
+            serv.setVisible(true);
         }
+    }
         
     }
