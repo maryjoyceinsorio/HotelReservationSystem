@@ -2,140 +2,228 @@
 package reservationsystem;
 
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
+import javax.swing.*;
 
 public class RoomService extends JFrame implements ActionListener{
-     private JLabel lblservice, lblbf, lblsalad, lblsnacks, lblbeve;
-     private JFrame f = new JFrame("Room Service");
-     private JButton  btnfullbf,btnbfbuffet, btncontibf, btnalacarte, btnclassic, btnturkey, btncaesar, 
-             btncobb, btncala, btnshrimp, btnfruit, btnnuts, btncoffee, btntea, btnwine, btndrinks;
-     
-     RoomService(){
-         f.setSize(450, 550);
-         f.setLayout(null);
-         f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
-         
-      lblservice = new JLabel("Room Service");
-      lblservice.setBounds(20, 30, 160, 30);
-      lblservice.setFont(new Font("Arial", Font.BOLD, 20));
-      
-      lblbf = new JLabel("Breakfast Options");
-      lblbf.setBounds(20, 70, 160, 30);
-      lblbf.setFont(new Font("Arial", Font.ITALIC, 13));
-      
-      btnfullbf = new JButton("Full Breakfast");
-      btnfullbf.setBounds(20, 100, 140, 25);
-      btnfullbf.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btnbfbuffet = new JButton("Breakfast Buffet");
-      btnbfbuffet.setBounds(180, 100, 140, 25);
-      btnbfbuffet.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btncontibf = new JButton("Continental Breakfast");
-      btncontibf.setBounds(20, 140, 140, 25);
-      btncontibf.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btnalacarte = new JButton("A La Carte Items");
-      btnalacarte.setBounds(180, 140, 140, 25);
-      btnalacarte.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      lblsalad = new JLabel("Sandwiches and salad");
-      lblsalad.setBounds(20, 165, 160, 30);
-      lblsalad.setFont(new Font("Arial", Font.ITALIC, 13));
-      
-      btnclassic = new JButton("Classic Sandwich");
-      btnclassic.setBounds(20, 200, 140, 25);
-      btnclassic.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btnturkey = new JButton("Turkey Sandwich");
-      btnturkey.setBounds(180, 200, 140, 25);
-      btnturkey.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btncaesar = new JButton("Caesar Salad");
-      btncaesar.setBounds(20, 240, 140, 25);
-      btncaesar.setFont(new Font("Arial", Font.PLAIN,13));
-      
-      btncobb = new JButton("Cobb Salad");
-      btncobb.setBounds(180, 240, 140, 25);
-      btncobb.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      lblsnacks = new JLabel("Appetizer and snacks");
-      lblsnacks.setBounds(20, 265, 160, 30);
-      lblsnacks.setFont(new Font("Arial", Font.ITALIC, 13));
-      
-      btncala = new JButton("Calamari");
-      btncala.setBounds(20, 300, 140, 25);
-      btncala.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btnshrimp = new JButton("Shrimp Cocktail");
-      btnshrimp.setBounds(180, 300, 140, 25);
-      btnshrimp.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btnfruit = new JButton("Fresh Fruit Plate");
-      btnfruit.setBounds(180, 340, 140, 25);
-      btnfruit.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btnnuts = new JButton("Mixed Nuts");
-      btnnuts.setBounds(20, 340, 140, 25);
-      btnnuts.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      lblbeve = new JLabel("Beverages");
-      lblbeve.setBounds(20, 365, 160, 30);
-      lblbeve.setFont(new Font("Arial", Font.ITALIC, 13));
-      
-      btncoffee = new JButton("Coffee");
-      btncoffee.setBounds(20, 400, 140, 25);
-      btncoffee.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btntea = new JButton("Tea");
-      btntea.setBounds(20, 440, 140, 25);
-      btntea.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btnwine = new JButton("Wine");
-      btnwine.setBounds(180, 400, 140, 25);
-      btnwine.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      btndrinks = new JButton("Soft Drinks");
-      btndrinks.setBounds(180, 440, 140, 25);
-      btndrinks.setFont(new Font("Arial", Font.PLAIN, 13));
-      
-      
-       f.add(lblservice);
-      f.add(lblbf);
-      f.add(btnfullbf);
-      f.add(btnbfbuffet);
-      f.add(btncontibf);
-      f.add(btnalacarte);
-      f.add(lblsalad);
-      f.add(btnclassic);
-      f.add(btnturkey);
-      f.add(btncaesar);
-      f.add(btncobb);
-      f.add(lblsnacks);
-      f.add(btncala);
-      f.add(btnshrimp);
-      f.add(btnfruit);
-      f.add(btnnuts);
-      f.add(lblbeve);
-      f.add(btncoffee);
-      f.add(btntea);
-      f.add(btnwine);
-      f.add(btndrinks);
-      
-f.setVisible(true);
-      f.setResizable(false);
     
+    private JLabel lblHotelName, lblBreakfast, lblLunch, lblDinner, lblQtyBreakfast, lblQtyLunch, lblQtyDinner;
+    private JButton btnAddBreakfast, btnMinusBreakfast, btnAddLunch, btnMinusLunch, btnAddDinner, btnMinusDinner, btnReviewOrder, btnResetOrder;
+    private JComboBox<String> cmbSizeBreakfast, cmbSizeLunch, cmbSizeDinner;
+    private JTextArea txaOrder;
+    
+    private static final String[] items = {"Pancakes", "Salad", "Cereals", "Yogurt",
+        "Chicken Soup", "Fettuccine Alredo","Pork Sisig","Chicken with vegetable", "Mushroom Risotto","Grilled Chiken", "Seared Scallops","Steaks"};
+    private int qtyBreakfast = 0;
+    private int qtyLunch = 0;
+    private int qtyDinner = 0;
+    
+    RoomService(){
+        setTitle("Room Service - Hotel");
+        setSize(600, 600);
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        lblHotelName = new JLabel("Hotel Name", SwingConstants.CENTER);
+        lblHotelName.setBounds(0, 10, 600, 30);
+        add(lblHotelName);
+        
+        // Breakfast
+        lblBreakfast = new JLabel("Breakfast:");
+        lblBreakfast.setBounds(50, 50, 100, 30);
+        add(lblBreakfast);
+        
+        lblQtyBreakfast = new JLabel("0");
+        lblQtyBreakfast.setBounds(160, 50, 100, 30);
+        add(lblQtyBreakfast);
+        
+        btnAddBreakfast = new JButton("+");
+        btnAddBreakfast.setBounds(200, 50, 50, 30);
+        add(btnAddBreakfast);
+        
+        btnMinusBreakfast = new JButton("-");
+        btnMinusBreakfast.setBounds(260, 50, 50, 30);
+        add(btnMinusBreakfast);
+        
+        cmbSizeBreakfast = new JComboBox<>(new String[] {"Pancakes", "Sandwich", "Salad", "Cereals","Yogurt"});
+        cmbSizeBreakfast.setBounds(330, 50, 120, 30);
+        add(cmbSizeBreakfast);
+        
+        // Lunch
+        lblLunch = new JLabel("Lunch:");
+        lblLunch.setBounds(50, 100, 100, 30);
+        add(lblLunch);
+        
+        lblQtyLunch = new JLabel("0");
+        lblQtyLunch.setBounds(160, 100, 100, 30);
+        add(lblQtyLunch);
+        
+        btnAddLunch = new JButton("+");
+        btnAddLunch.setBounds(200, 100, 50, 30);
+        add(btnAddLunch);
+        
+        btnMinusLunch = new JButton("-");
+        btnMinusLunch.setBounds(260, 100, 50, 30);
+        add(btnMinusLunch);
+        
+        cmbSizeLunch = new JComboBox<>(new String[] {"Chicken Soup", "Fettuccine Alredo","Pork Sisig","Chiken with vegetable"});
+        cmbSizeLunch.setBounds(330, 100, 120, 30);
+        add(cmbSizeLunch);
+        
+        // Dinner
+        lblDinner = new JLabel("Dinner:");
+        lblDinner.setBounds(50, 150, 100, 30);
+        add(lblDinner);
+        
+        lblQtyDinner = new JLabel("0");
+        lblQtyDinner.setBounds(160, 150, 100, 30);
+        add(lblQtyDinner);
+        
+        btnAddDinner = new JButton("+");
+        btnAddDinner.setBounds(200, 150, 50, 30);
+        add(btnAddDinner);
+        
+        btnMinusDinner = new JButton("-");
+        btnMinusDinner.setBounds(260, 150, 50, 30);
+        add(btnMinusDinner);
+        
+        cmbSizeDinner = new JComboBox<>(new String[] {"Mushroom Risotto","Grilled Chicken", "Seared Scallops","Steaks"});
+        cmbSizeDinner.setBounds(330, 150, 120, 30);
+        add(cmbSizeDinner);
+        
+        // Review Order button
+        btnReviewOrder = new JButton("Review Room Service");
+        btnReviewOrder.setBounds(50, 200, 200, 30);
+        add(btnReviewOrder);
+        
+        // Reset Order button
+        btnResetOrder = new JButton("Cancel");
+        btnResetOrder.setBounds(270, 200, 150, 30);
+        add(btnResetOrder);
+        
+        // Text area for displaying order details
+        txaOrder = new JTextArea();
+        txaOrder.setBounds(50, 250, 500, 300);
+        txaOrder.setEditable(false);
+        add(txaOrder);
+        
+        // Add action listeners to buttons
+        btnAddBreakfast.addActionListener(this);
+        btnMinusBreakfast.addActionListener(this);
+        btnAddLunch.addActionListener(this);
+        btnMinusLunch.addActionListener(this);
+        btnAddDinner.addActionListener(this);
+        btnMinusDinner.addActionListener(this);
+        btnReviewOrder.addActionListener(this);
+        btnResetOrder.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();
-        
+        if(e.getSource() == btnAddBreakfast){
+            qtyBreakfast++;
+            lblQtyBreakfast.setText(String.valueOf(qtyBreakfast));
+        } else if(e.getSource() == btnMinusBreakfast){
+            if(qtyBreakfast > 0){
+                qtyBreakfast--;
+                lblQtyBreakfast.setText(String.valueOf(qtyBreakfast));
+            }
+        }
+        else if(e.getSource() == btnAddLunch){
+            qtyLunch++;
+            lblQtyLunch.setText(String.valueOf(qtyLunch));
+        }
+        else if(e.getSource() == btnMinusLunch){
+            if(qtyLunch > 0){
+                qtyLunch--;
+                lblQtyLunch.setText(String.valueOf(qtyLunch));
+            }
+        }
+        else if(e.getSource() == btnAddDinner){
+            qtyDinner++;
+            lblQtyDinner.setText(String.valueOf(qtyDinner));
+        }
+        else if(e.getSource() == btnMinusDinner){
+            if(qtyDinner > 0){
+                qtyDinner--;
+                lblQtyDinner.setText(String.valueOf(qtyDinner));
+            }
+        }
+        else if(e.getSource() == btnReviewOrder){
+            double totalCost = 0.0;
+            
+            totalCost += calculateCost(qtyBreakfast, (String)cmbSizeBreakfast.getSelectedItem());
+            totalCost += calculateCost(qtyLunch, (String)cmbSizeLunch.getSelectedItem());
+            totalCost += calculateCost(qtyDinner, (String)cmbSizeDinner.getSelectedItem());
+            
+            txaOrder.setText("Breakfast ("+cmbSizeBreakfast.getSelectedItem()+"): "+qtyBreakfast+"\n" +
+            "Lunch ("+cmbSizeLunch.getSelectedItem()+"): "+qtyLunch+"\n" +
+            "Dinner ("+cmbSizeDinner.getSelectedItem()+"): "+qtyDinner+"\n" +
+            "Total Cost: $"+String.format("%.2f", totalCost));
+        }
+        else if(e.getSource() == btnResetOrder){
+            // Reset quantities and selected sizes
+            lblQtyBreakfast.setText("0");
+            lblQtyLunch.setText("0");
+            lblQtyDinner.setText("0");
+            
+            cmbSizeBreakfast.setSelectedIndex(0);
+            cmbSizeLunch.setSelectedIndex(0);
+            cmbSizeDinner.setSelectedIndex(0);
+            
+            txaOrder.setText("");
+        }
+    }
+
+    private double calculateCost(int quantity, String size){
+        double price = 0.0;
+        switch(size){
+            case "Salad":
+                price = 12.00;
+                break;
+            case "Cereals":
+                price = 10.00;
+                break;
+             case "Yogurt":
+                price = 7.00;
+                break;
+            case "Pancakes":
+                price = 10.50;
+                break;
+            case "Chicken Soup":
+                price = 15.00;
+                break;
+            case "Fettuccine Alfredo":
+                price = 15.00;
+                break;
+            case "Pork Sisig":
+                price = 15.00;
+                break;   
+            case "Chicken with vegetable":
+                price = 15.00;
+                break;
+             case "Mushroom Risotto":
+                price = 15.00;
+                break;
+             case "Grilled Chicken":
+                price = 15.00;
+                break;
+             case "Seared Scallops":
+                price = 15.00;
+                break;
+             case "Steaks":
+                price = 15.00;
+                break;   
+        }
+        return quantity * price;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            RoomService roomService = new RoomService();
+            roomService.setVisible(true);
+        });
+ 
     }
 }
