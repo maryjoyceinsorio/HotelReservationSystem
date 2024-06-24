@@ -17,10 +17,10 @@ import javax.swing.*;
  */
 public class DeluxeRoom extends JFrame implements ActionListener{
   private JButton backbtn, paymentsbtn;
-  private JLabel blhead, bldesc, bldeta, blprice;
+  private JLabel dxhead, dxdesc, dxdeta, dxprice;
     
     DeluxeRoom(){
-        setTitle("Family Room");
+        setTitle("Deluxe Room");
         setSize(600, 600);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,25 +31,25 @@ public class DeluxeRoom extends JFrame implements ActionListener{
         paymentsbtn = new JButton("Payments");
         paymentsbtn.setBounds(410, 400, 150, 50);
         
-        blhead = new JLabel("Triple Family Room");
-        blhead.setBounds(80, -50, 400, 400);
-        blhead.setFont(new Font("Lucida Calligraphy", Font.BOLD,18));
-        add(blhead);
+        dxhead = new JLabel("Deluxe Room");
+        dxhead.setBounds(80, -50, 400, 400);
+        dxhead.setFont(new Font("Lucida Calligraphy", Font.BOLD,18));
+        add(dxhead);
         
-        bldesc = new JLabel("A small room for families");
-        bldesc.setBounds(80, -20, 400, 400);
-        bldesc.setFont(new Font("Lucida Handwriting", Font.ITALIC,14));
-        add(bldesc);
+        dxdesc = new JLabel("A large room capable of fitting two or one");
+        dxdesc.setBounds(80, -20, 400, 400);
+        dxdesc.setFont(new Font("Lucida Handwriting", Font.ITALIC,14));
+        add(dxdesc);
         
-        bldeta = new JLabel("Available on second floors and third floors.");
-        bldeta.setBounds(80, 0, 400, 400);
-        bldeta.setFont(new Font("Lucida Handwriting", Font.PLAIN, 14));
-        add(bldeta);
+        dxdeta = new JLabel("Available on second floors and third floors.");
+        dxdeta.setBounds(80, 0, 400, 400);
+        dxdeta.setFont(new Font("Lucida Handwriting", Font.PLAIN, 14));
+        add(dxdeta);
         
-        blprice = new JLabel("1825.00 php/per night");
-        blprice.setBounds(80, 80, 400, 400);
-        blprice.setFont(new Font("Lucida Sans", Font.PLAIN, 25));
-        add(blprice);
+        dxprice = new JLabel("2045.00 php/per night");
+        dxprice.setBounds(80, 80, 400, 400);
+        dxprice.setFont(new Font("Lucida Sans", Font.PLAIN, 25));
+        add(dxprice);
         
         add(backbtn);
         add(paymentsbtn);
