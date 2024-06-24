@@ -17,7 +17,7 @@ import javax.swing.*;
  */
 public class TripleBedFrame extends JFrame implements ActionListener{
   private JButton backbtn, paymentsbtn;
-  private JLabel blhead, bldesc, bldeta, blprice;
+  private JLabel tbhead, tbdesc, tbdeta, tbprice;
     
     TripleBedFrame(){
         setTitle("Family Room");
@@ -31,25 +31,25 @@ public class TripleBedFrame extends JFrame implements ActionListener{
         paymentsbtn = new JButton("Payments");
         paymentsbtn.setBounds(410, 400, 150, 50);
         
-        blhead = new JLabel("Triple Family Room");
-        blhead.setBounds(80, -50, 400, 400);
-        blhead.setFont(new Font("Lucida Calligraphy", Font.BOLD,18));
-        add(blhead);
+        tbhead = new JLabel("Triple Family Room");
+        tbhead.setBounds(80, -50, 400, 400);
+        tbhead.setFont(new Font("Lucida Calligraphy", Font.BOLD,18));
+        add(tbhead);
         
-        bldesc = new JLabel("A small room for families");
-        bldesc.setBounds(80, -20, 400, 400);
-        bldesc.setFont(new Font("Lucida Handwriting", Font.ITALIC,14));
-        add(bldesc);
+        tbdesc = new JLabel("A small room for families");
+        tbdesc.setBounds(80, -20, 400, 400);
+        tbdesc.setFont(new Font("Lucida Handwriting", Font.ITALIC,14));
+        add(tbdesc);
         
-        bldeta = new JLabel("Available on second floors and third floors.");
-        bldeta.setBounds(80, 0, 400, 400);
-        bldeta.setFont(new Font("Lucida Handwriting", Font.PLAIN, 14));
-        add(bldeta);
+        tbdeta = new JLabel("Available on second floors and third floors.");
+        tbdeta.setBounds(80, 0, 400, 400);
+        tbdeta.setFont(new Font("Lucida Handwriting", Font.PLAIN, 14));
+        add(tbdeta);
         
-        blprice = new JLabel("1825.00 php/per night");
-        blprice.setBounds(80, 80, 400, 400);
-        blprice.setFont(new Font("Lucida Sans", Font.PLAIN, 25));
-        add(blprice);
+        tbprice = new JLabel("1825.00 php/per night");
+        tbprice.setBounds(80, 80, 400, 400);
+        tbprice.setFont(new Font("Lucida Sans", Font.PLAIN, 25));
+        add(tbprice);
         
         add(backbtn);
         add(paymentsbtn);

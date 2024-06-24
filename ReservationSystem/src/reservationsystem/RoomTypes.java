@@ -115,7 +115,7 @@ public class RoomTypes extends JFrame implements ActionListener {
             BalconyFrame bf = new BalconyFrame();
             bf.setVisible(true);
         }else if(e.getSource() == room4){
-            QueenBedFrame tbf = new QueenBedFrame();
+            TripleBedFrame tbf = new TripleBedFrame();
             tbf.setVisible(true);
                 
 }

@@ -15,11 +15,11 @@ import javax.swing.*;
  *
  * @author Nieto
  */
-public class QueenBedFrame extends JFrame implements ActionListener{
+public class DeluxeRoom extends JFrame implements ActionListener{
   private JButton backbtn, paymentsbtn;
   private JLabel blhead, bldesc, bldeta, blprice;
     
-    QueenBedFrame(){
+    DeluxeRoom(){
         setTitle("Family Room");
         setSize(600, 600);
         setLayout(null);
