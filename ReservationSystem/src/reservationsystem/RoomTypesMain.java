@@ -17,8 +17,8 @@ public class RoomTypesMain {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Homepage hp = new Homepage();
-                hp.setVisible(true);
+                RoomTypes sbf = new RoomTypes();
+                sbf.setVisible(true);
             }
         });
     }

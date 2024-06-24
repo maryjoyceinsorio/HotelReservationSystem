@@ -15,12 +15,12 @@ import javax.swing.*;
  *
  * @author Nieto
  */
-public class SingleBedFrame extends JFrame implements ActionListener{
+public class QueenBedFrame extends JFrame implements ActionListener{
   private JButton backbtn, paymentsbtn;
-  private JLabel sbhead, sbdesc, sbprice, sbdeta;
+  private JLabel blhead, bldesc, bldeta, blprice;
     
-    SingleBedFrame(){
-        setTitle("Single Person");
+    QueenBedFrame(){
+        setTitle("Family Room");
         setSize(600, 600);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,29 +31,28 @@ public class SingleBedFrame extends JFrame implements ActionListener{
         paymentsbtn = new JButton("Payments");
         paymentsbtn.setBounds(410, 400, 150, 50);
         
-        sbhead = new JLabel("Standard Room");
-        sbhead.setBounds(80, -50, 400, 400);
-        sbhead.setFont(new Font("Lucida Calligraphy", Font.BOLD,18));
-        add(sbhead);
+        blhead = new JLabel("Triple Family Room");
+        blhead.setBounds(80, -50, 400, 400);
+        blhead.setFont(new Font("Lucida Calligraphy", Font.BOLD,18));
+        add(blhead);
         
-        sbdesc = new JLabel("Most affordable room available.");
-        sbdesc.setBounds(80, -20, 400, 400);
-        sbdesc.setFont(new Font("Lucida Handwriting", Font.ITALIC,14));
-        add(sbdesc);
+        bldesc = new JLabel("A small room for families");
+        bldesc.setBounds(80, -20, 400, 400);
+        bldesc.setFont(new Font("Lucida Handwriting", Font.ITALIC,14));
+        add(bldesc);
         
-        sbdeta = new JLabel("Available on lower floors.");
-        sbdeta.setBounds(80, 0, 400, 400);
-        sbdeta.setFont(new Font("Lucida Handwriting", Font.PLAIN, 14));
-        add(sbdeta);
+        bldeta = new JLabel("Available on second floors and third floors.");
+        bldeta.setBounds(80, 0, 400, 400);
+        bldeta.setFont(new Font("Lucida Handwriting", Font.PLAIN, 14));
+        add(bldeta);
         
-        sbprice = new JLabel("970.00 php/per night");
-        sbprice.setBounds(80, 80, 400, 400);
-        sbprice.setFont(new Font("Lucida Sans", Font.PLAIN, 25));
-        add(sbprice);
+        blprice = new JLabel("1825.00 php/per night");
+        blprice.setBounds(80, 80, 400, 400);
+        blprice.setFont(new Font("Lucida Sans", Font.PLAIN, 25));
+        add(blprice);
         
         add(backbtn);
         add(paymentsbtn);
-        
         
         backbtn.addActionListener(this);
         paymentsbtn.addActionListener(this);
@@ -70,4 +69,3 @@ public class SingleBedFrame extends JFrame implements ActionListener{
         }
     }
 }
-
