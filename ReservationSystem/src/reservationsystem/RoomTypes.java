@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomPaymentOption extends JFrame implements ActionListener {
+public class RoomTypes extends JFrame implements ActionListener {
     
     private Container container;
     private JLabel titleLabel, roomTypeLabel;
@@ -22,7 +22,7 @@ public class RoomPaymentOption extends JFrame implements ActionListener {
     // Room types and their prices
     private Map<String, Integer> roomPrices;
 
-    public RoomPaymentOption() {
+    public RoomTypes() {
         setTitle("Hotel Room Type Selection");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -1,4 +1,3 @@
-
 package reservationsystem;
 
 
@@ -6,10 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class RoomService extends JFrame implements ActionListener{
+public class RoomService extends JFrame implements ActionListener {
     
-    private JLabel lblHotelName, lblBreakfast, lblLunch, lblDinner, lblQtyBreakfast, lblQtyLunch, lblQtyDinner;
-    private JButton btnAddBreakfast, btnMinusBreakfast, btnAddLunch, btnMinusLunch, btnAddDinner, btnMinusDinner, btnReviewOrder, btnResetOrder;
+    private JLabel lblHotelName,  lblBreakfast, lblLunch, lblDinner, lblQtyBreakfast, lblQtyLunch, lblQtyDinner;
+    private JButton btnAddBreakfast, btnMinusBreakfast, btnAddLunch, btnMinusLunch, btnAddDinner, btnMinusDinner, btnReviewOrder, btnPayment;
     private JComboBox<String> cmbSizeBreakfast, cmbSizeLunch, cmbSizeDinner;
     private JTextArea txaOrder;
     
@@ -29,7 +28,7 @@ public class RoomService extends JFrame implements ActionListener{
         lblHotelName.setBounds(0, 10, 600, 30);
         add(lblHotelName);
         
-        // Breakfast
+       
         lblBreakfast = new JLabel("Breakfast:");
         lblBreakfast.setBounds(50, 50, 100, 30);
         add(lblBreakfast);
@@ -50,7 +49,7 @@ public class RoomService extends JFrame implements ActionListener{
         cmbSizeBreakfast.setBounds(330, 50, 120, 30);
         add(cmbSizeBreakfast);
         
-        // Lunch
+        
         lblLunch = new JLabel("Lunch:");
         lblLunch.setBounds(50, 100, 100, 30);
         add(lblLunch);
@@ -67,11 +66,11 @@ public class RoomService extends JFrame implements ActionListener{
         btnMinusLunch.setBounds(260, 100, 50, 30);
         add(btnMinusLunch);
         
-        cmbSizeLunch = new JComboBox<>(new String[] {"Chicken Soup", "Fettuccine Alredo","Pork Sisig","Chiken with vegetable"});
+        cmbSizeLunch = new JComboBox<>(new String[] {"Chicken Soup", "Fettuccine Alredo","Pork Sisig","Chicken with vegetable"});
         cmbSizeLunch.setBounds(330, 100, 120, 30);
         add(cmbSizeLunch);
         
-        // Dinner
+        
         lblDinner = new JLabel("Dinner:");
         lblDinner.setBounds(50, 150, 100, 30);
         add(lblDinner);
@@ -92,23 +91,23 @@ public class RoomService extends JFrame implements ActionListener{
         cmbSizeDinner.setBounds(330, 150, 120, 30);
         add(cmbSizeDinner);
         
-        // Review Order button
+        
         btnReviewOrder = new JButton("Review Room Service");
         btnReviewOrder.setBounds(50, 200, 200, 30);
         add(btnReviewOrder);
         
-        // Reset Order button
-        btnResetOrder = new JButton("Cancel");
-        btnResetOrder.setBounds(270, 200, 150, 30);
-        add(btnResetOrder);
         
-        // Text area for displaying order details
+        btnPayment = new JButton("Payment");
+        btnPayment.setBounds(270, 200, 150, 30);
+        add(btnPayment);
+        
+        
         txaOrder = new JTextArea();
         txaOrder.setBounds(50, 250, 500, 300);
         txaOrder.setEditable(false);
         add(txaOrder);
         
-        // Add action listeners to buttons
+        
         btnAddBreakfast.addActionListener(this);
         btnMinusBreakfast.addActionListener(this);
         btnAddLunch.addActionListener(this);
@@ -116,7 +115,7 @@ public class RoomService extends JFrame implements ActionListener{
         btnAddDinner.addActionListener(this);
         btnMinusDinner.addActionListener(this);
         btnReviewOrder.addActionListener(this);
-        btnResetOrder.addActionListener(this);
+        btnPayment.addActionListener(this);
     }
 
     @Override
@@ -129,28 +128,23 @@ public class RoomService extends JFrame implements ActionListener{
                 qtyBreakfast--;
                 lblQtyBreakfast.setText(String.valueOf(qtyBreakfast));
             }
-        }
-        else if(e.getSource() == btnAddLunch){
+        } else if(e.getSource() == btnAddLunch){
             qtyLunch++;
             lblQtyLunch.setText(String.valueOf(qtyLunch));
-        }
-        else if(e.getSource() == btnMinusLunch){
+        } else if(e.getSource() == btnMinusLunch){
             if(qtyLunch > 0){
                 qtyLunch--;
                 lblQtyLunch.setText(String.valueOf(qtyLunch));
             }
-        }
-        else if(e.getSource() == btnAddDinner){
+        } else if(e.getSource() == btnAddDinner){
             qtyDinner++;
             lblQtyDinner.setText(String.valueOf(qtyDinner));
-        }
-        else if(e.getSource() == btnMinusDinner){
+        } else if(e.getSource() == btnMinusDinner){
             if(qtyDinner > 0){
                 qtyDinner--;
                 lblQtyDinner.setText(String.valueOf(qtyDinner));
             }
-        }
-        else if(e.getSource() == btnReviewOrder){
+        } else if(e.getSource() == btnReviewOrder){
             double totalCost = 0.0;
             
             totalCost += calculateCost(qtyBreakfast, (String)cmbSizeBreakfast.getSelectedItem());
@@ -161,18 +155,17 @@ public class RoomService extends JFrame implements ActionListener{
             "Lunch ("+cmbSizeLunch.getSelectedItem()+"): "+qtyLunch+"\n" +
             "Dinner ("+cmbSizeDinner.getSelectedItem()+"): "+qtyDinner+"\n" +
             "Total Cost: $"+String.format("%.2f", totalCost));
-        }
-        else if(e.getSource() == btnResetOrder){
-            // Reset quantities and selected sizes
-            lblQtyBreakfast.setText("0");
-            lblQtyLunch.setText("0");
-            lblQtyDinner.setText("0");
+        } else if(e.getSource() == btnPayment){
+            double totalCost = 0.0;
             
-            cmbSizeBreakfast.setSelectedIndex(0);
-            cmbSizeLunch.setSelectedIndex(0);
-            cmbSizeDinner.setSelectedIndex(0);
+            totalCost += calculateCost(qtyBreakfast, (String)cmbSizeBreakfast.getSelectedItem());
+            totalCost += calculateCost(qtyLunch, (String)cmbSizeLunch.getSelectedItem());
+            totalCost += calculateCost(qtyDinner, (String)cmbSizeDinner.getSelectedItem());
             
-            txaOrder.setText("");
+           
+            Payment payment = new Payment();
+            payment.setTotalAmount(String.format("%.2f", totalCost));
+            payment.setVisible(true);
         }
     }
 
@@ -185,7 +178,7 @@ public class RoomService extends JFrame implements ActionListener{
             case "Cereals":
                 price = 10.00;
                 break;
-             case "Yogurt":
+            case "Yogurt":
                 price = 7.00;
                 break;
             case "Pancakes":
@@ -194,7 +187,7 @@ public class RoomService extends JFrame implements ActionListener{
             case "Chicken Soup":
                 price = 15.00;
                 break;
-            case "Fettuccine Alfredo":
+            case "Fettuccine Alredo":
                 price = 15.00;
                 break;
             case "Pork Sisig":
@@ -203,27 +196,29 @@ public class RoomService extends JFrame implements ActionListener{
             case "Chicken with vegetable":
                 price = 15.00;
                 break;
-             case "Mushroom Risotto":
+            case "Mushroom Risotto":
                 price = 15.00;
                 break;
-             case "Grilled Chicken":
+            case "Grilled Chicken":
                 price = 15.00;
                 break;
-             case "Seared Scallops":
+            case "Seared Scallops":
                 price = 15.00;
                 break;
-             case "Steaks":
+            case "Steaks":
                 price = 15.00;
                 break;   
         }
         return quantity * price;
     }
     
+
+    
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
+        
             RoomService roomService = new RoomService();
             roomService.setVisible(true);
-        });
+        }
  
     }
-}
+
