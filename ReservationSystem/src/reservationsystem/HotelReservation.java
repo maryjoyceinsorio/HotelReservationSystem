@@ -1,109 +1,102 @@
-package reservationsystem;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package hotel;
 
-import java.awt.Font;
-import java.awt.event.*;
+
+
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class HotelReservation {
-  
-    private JFrame f = new JFrame("HOTEL RESERVATION");
-    private JLabel lblHOTELRESERVATIONFORM, lblGuestName, lblEmail, lblPhoneNumber, lblReservationDate, lblReservationTime, lblHowmanyPersonwillyoubewith;
-    private JTextField txtfldName = new JTextField();
-     private JTextField txtfldEmail = new JTextField();
-     private JTextField txtfldPhoneNumber = new JTextField();
-    private JTextField txtfldReservationDate = new JTextField();
-     private JTextField txtfldReservationTime = new JTextField();
-      private JTextField txtfldHowmanyPersonwillyoubewith = new JTextField();
-      private JButton btnSearch, btnDelete;
-      
-      HotelReservation(){
-    f.setSize(500, 600);
-    f.setLayout(null);
-    f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
-    
-    lblHOTELRESERVATIONFORM = new JLabel("HOTEL RESERVATION");
-    lblHOTELRESERVATIONFORM.setBounds(100, 30, 350, 60);
-    lblHOTELRESERVATIONFORM.setFont(new Font("Casterllar", Font.BOLD,20));
-    
-    lblGuestName = new JLabel("GuestName:");
-    lblGuestName.setBounds(20, 100, 120, 40);
-    lblGuestName.setFont(new Font("Casterllar", Font.BOLD,15));
-    
-    lblEmail = new JLabel("Email:");
-    lblEmail.setBounds(20, 160, 140, 40);
-    lblEmail.setFont(new Font("Casterllar", Font.BOLD,15));
-    
-     
-    lblPhoneNumber = new JLabel("Phone Number:");
-    lblPhoneNumber.setBounds(20, 220, 140, 40);
-    lblPhoneNumber.setFont(new Font("Casterllar", Font.BOLD,15));
+public class reservation extends JFrame implements ActionListener {
+
+    private JLabel lblReservationDetails, lblCheckIn, lblCheckOut,lblRoomType;
+    private JTextField txtCheckIn, txtCheckOut;
+    private JComboBox<String> comboRoomType;
+    private JButton btnSearch,btnReserve;
     
     
-    lblReservationDate = new JLabel("ReservationDate:");
-    lblReservationDate.setBounds(20, 280, 140, 40);
-    lblReservationDate.setFont(new Font("Casterllar", Font.BOLD,15));
-    
-     
-     
-    lblReservationTime = new JLabel("ReservationTime:");
-    lblReservationTime.setBounds(20, 340, 140, 40);
-    lblReservationTime.setFont(new Font("Casterllar", Font.BOLD,15));
-    
-    
-    lblHowmanyPersonwillyoubewith = new JLabel("How many Person will you be with:");
-    lblHowmanyPersonwillyoubewith.setBounds(20, 400, 500, 40);
-    lblHowmanyPersonwillyoubewith.setFont(new Font("Casterllar", Font.BOLD,15));
-    
-    btnSearch = new JButton("Search");
-    btnSearch.setBounds(350, 500, 100, 30);
-    btnSearch.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    btnDelete = new JButton("DELETE");
-    btnDelete.setBounds(20, 500, 100, 30);
-    btnDelete.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    
-            
-    
-    
-    txtfldName.setBounds(115, 110, 200,20);
-    txtfldName.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    txtfldEmail.setBounds(80, 170, 200,20);
-    txtfldEmail.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    txtfldPhoneNumber.setBounds(150, 230, 200,20);
-    txtfldPhoneNumber.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    txtfldReservationDate.setBounds(150, 290, 200,20);
-    txtfldReservationDate.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    txtfldReservationTime.setBounds(155, 350, 200,20);
-    txtfldReservationTime.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    txtfldHowmanyPersonwillyoubewith.setBounds(280, 410, 100,20);
-    txtfldHowmanyPersonwillyoubewith.setFont(new Font("Castellar", Font.PLAIN, 15));
-    
-    f.add(btnDelete);
-    f.add(btnSearch);
-    f.add(txtfldHowmanyPersonwillyoubewith);
-    f.add(lblHowmanyPersonwillyoubewith);
-    f.add(lblReservationTime);
-    f.add(txtfldReservationTime);
-    f.add(txtfldReservationDate);
-    f.add(lblReservationDate);
-    f.add(lblPhoneNumber);
-    f.add( lblEmail);
-    f.add(lblGuestName); 
-    f.add(txtfldName);
-    f.add(txtfldEmail);
-    f.add(txtfldPhoneNumber);
-    f.add(lblHOTELRESERVATIONFORM);
-     f.setVisible(true);
-    f.setResizable(false);
+    public reservation () {
+        setTitle("Reservation Area");
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
         
-      }
-      
+        lblReservationDetails = new JLabel("Reservation Details");
+        lblReservationDetails.setBounds(20, 20, 150, 25);
+        add(lblReservationDetails);
+        
+        lblCheckIn = new JLabel("Check-in Date:");
+        lblCheckIn.setBounds(20, 60, 100, 25);
+        add(lblCheckIn);
+        
+        txtCheckIn = new JTextField();
+        txtCheckIn.setBounds(130, 60, 120, 25);
+        add(txtCheckIn);
+        
+        lblCheckOut = new JLabel("Check-out Date:");
+        lblCheckOut.setBounds(20, 100, 100, 25);
+        add(lblCheckOut);
+        
+        txtCheckOut = new JTextField();
+        txtCheckOut.setBounds(130, 100, 120, 25);
+        add(txtCheckOut);
+        
+        lblRoomType = new JLabel("Room Type:");
+        lblRoomType.setBounds(20, 140, 100, 25);
+        add(lblRoomType);
+        
+        String[] roomTypes = {"Single", "Double", "Suite"};
+        comboRoomType = new JComboBox<>(roomTypes);
+        comboRoomType.setBounds(130, 140, 120, 25);
+        add(comboRoomType);
+        
+        btnSearch = new JButton("Search Rooms");
+        btnSearch.setBounds(280, 60, 150, 25);
+        btnSearch.addActionListener(this);
+        add(btnSearch);
+        
+        btnReserve = new JButton("Reserve Room");
+        btnReserve.setBounds(280, 100, 150, 25);
+        btnReserve.addActionListener(this);
+        add(btnReserve);
+        
+        setVisible(true);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnSearch) {
+            
+            String checkInDate = txtCheckIn.getText();
+            String checkOutDate = txtCheckOut.getText();
+            String selectedRoomType = (String) comboRoomType.getSelectedItem();
+            
+            JOptionPane.showMessageDialog(this, "Searching rooms...\n"
+                    + "Check-in: " + checkInDate + "\n"
+                    + "Check-out: " + checkOutDate + "\n"
+                    + "Room Type: " + selectedRoomType);
+            
+        } else if (e.getSource() == btnReserve) {
+            
+            String checkInDate = txtCheckIn.getText();
+            String checkOutDate = txtCheckOut.getText();
+            String selectedRoomType = (String) comboRoomType.getSelectedItem();
+            
+            JOptionPane.showMessageDialog(this, "Reserving room...\n"
+                    + "Check-in: " + checkInDate + "\n"
+                    + "Check-out: " + checkOutDate + "\n"
+                    + "Room Type: " + selectedRoomType);
+            
+            
+            SEARCH77 s = new SEARCH77();
+            s.setVisible(true);
+            dispose(); // Close the current ReservationArea frame
+            
+        }
+    }
 }
-
-
