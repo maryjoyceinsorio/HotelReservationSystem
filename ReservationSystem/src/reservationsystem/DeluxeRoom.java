@@ -64,7 +64,7 @@ public class DeluxeRoom extends JFrame implements ActionListener{
             RoomTypes rt = new RoomTypes();
             rt.setVisible(true);
         }else if (e.getSource() == paymentsbtn) {
-            Payment payment = new Payment();
+            RoomPaymentOption payment = new RoomPaymentOption();
             payment.setVisible(true);
         }
     }

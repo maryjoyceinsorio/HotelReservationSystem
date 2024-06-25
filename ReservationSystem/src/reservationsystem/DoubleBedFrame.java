@@ -63,8 +63,8 @@ public class DoubleBedFrame extends JFrame implements ActionListener{
      if(e.getSource() == backbtn){
             RoomTypes rt = new RoomTypes();
             rt.setVisible(true);
-        }else if (e.getSource() == paymentsbtn) {
-            Payment payment = new Payment();
+            }else if (e.getSource() == paymentsbtn) {
+            RoomPaymentOption payment = new RoomPaymentOption();
             payment.setVisible(true);
         }
     }
