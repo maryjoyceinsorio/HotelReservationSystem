@@ -14,7 +14,7 @@ public class Payment extends JFrame implements ActionListener {
     private JButton btnPay;
 
     private String[] paymentMethods = {"Credit Card", "Debit Card", "PayPal", "Bank Transfer"};
-
+    
     public Payment(String totalAmount) {
         setTitle("Payment");
         setSize(600, 400);
@@ -28,9 +28,9 @@ public class Payment extends JFrame implements ActionListener {
         lblAmount.setBounds(20, 60, 100, 25);
         add(lblAmount);
         
-        txtAmount = new JTextField(totalAmount); // Initialize with the provided total amount
+        txtAmount = new JTextField(totalAmount); 
         txtAmount.setBounds(130, 60, 150, 25);
-        txtAmount.setEditable(false); // Ensure the amount field is not editable
+        txtAmount.setEditable(false); 
         
         lblPaymentMethod = new JLabel("Payment Method:");
         lblPaymentMethod.setBounds(20, 100, 120, 25);
@@ -50,6 +50,9 @@ public class Payment extends JFrame implements ActionListener {
         add(btnPay);
         setVisible(true);
     }
+
+    Payment() {
+    }
   
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -61,16 +64,15 @@ public class Payment extends JFrame implements ActionListener {
                     + "Total Amount Paid: " + totalAmount + "\n"
                     + "Payment Method: " + selectedMethod);
             
-            dispose(); // Close the Payment frame after payment is processed
-            
-            JOptionPane.showMessageDialog(null, "Thank you for your payment. "
-                    + "You will receive a confirmation email shortly.");
-            
-            // Replace with appropriate action after payment completion, e.g., navigating to a homepage
-            // Homepage homepage = new Homepage();
-            // homepage.setVisible(true);
-        }
+            dispose(); 
+        
+        JOptionPane.showMessageDialog(null, "Thank you for your payment. "
+                + "You will receive a confirmation email shortly.");
+        
+        Homepage homepage = new Homepage();
+        homepage.setVisible(true); 
     }
+}
 
     public void setTotalAmount(String amount) {
         txtAmount.setText(amount);

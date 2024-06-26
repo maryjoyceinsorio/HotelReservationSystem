@@ -2,7 +2,6 @@ package reservationsystem;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +10,7 @@ public class Homepage extends JFrame implements ActionListener {
     private JTable table;
     private DefaultTableModel tableModel;
     private JScrollPane scrollPane;
-    private JButton btnReservationAreaHeader, btnTypesOfRoom, btnRoomSearch, btnRoomService;
+    private JButton btnReservationAreaHeader, btnTypesOfRoom, btnRoomSearch;
 
     public Homepage() {
         setTitle("Home Page");
@@ -22,14 +21,14 @@ public class Homepage extends JFrame implements ActionListener {
         JLabel lblWelcome = new JLabel("Welcome to Hotel Reservation System");
         lblWelcome.setBounds(150, 20, 500, 30);
         lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
-        lblWelcome.setFont(new Font("Arial", Font.BOLD, 20));
+        lblWelcome.setFont(lblWelcome.getFont().deriveFont(20.0f));
         add(lblWelcome);
 
         btnReservationAreaHeader = new JButton("Reservation Area");
         btnReservationAreaHeader.setBounds(50, 70, 150, 30);
         btnReservationAreaHeader.addActionListener(this);
         add(btnReservationAreaHeader);
-  
+
         btnTypesOfRoom = new JButton("Types of Room");
         btnTypesOfRoom.setBounds(225, 70, 150, 30);
         btnTypesOfRoom.addActionListener(this);
@@ -40,15 +39,11 @@ public class Homepage extends JFrame implements ActionListener {
         btnRoomSearch.addActionListener(this);
         add(btnRoomSearch);
 
-        btnRoomService = new JButton("Room Service");
-        btnRoomService.setBounds(575, 70, 150, 30);
-        btnRoomService.addActionListener(this);
-        add(btnRoomService);
-
         String[] columnNames = {"Name", "Contact", "Check-In", "Check-Out", "Room Type"};
         Object[][] data = {
-                {"John Doe", "123456789", "01-01-2024", "05-01-2024", "Deluxe"},
-                {"Jane Smith", "987654321", "02-01-2024", "06-01-2024", "Suite"},
+                {"John Doe", "123456789", "2024-01-01", "2024-01-05", "Single"},
+                {"Jane Smith", "987654321", "2024-01-02", "2024-01-06", "Double"},
+                {"Bob Johnson", "456789123", "2024-01-03", "2024-01-07", "Suite"}
         };
 
         tableModel = new DefaultTableModel(data, columnNames);
@@ -72,30 +67,35 @@ public class Homepage extends JFrame implements ActionListener {
         btnAdd.addActionListener(this);
         add(btnAdd);
 
-        
-        getContentPane().setBackground(new Color(215, 230, 243)); 
-
         setVisible(true);
+    }
+
+    public Object[][] getReservations() {
+        int rowCount = tableModel.getRowCount();
+        int columnCount = tableModel.getColumnCount();
+        Object[][] reservations = new Object[rowCount][columnCount];
+
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < columnCount; j++) {
+                reservations[i][j] = tableModel.getValueAt(i, j);
+            }
+        }
+        return reservations;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-
-        if (source == btnReservationAreaHeader) {
+        if (e.getSource() == btnReservationAreaHeader) {
             new HotelReservation().setVisible(true);
             dispose();
-        } else if (source == btnTypesOfRoom) {
-            new RoomTypes().setVisible(true);
-            dispose();
-        } else if (source == btnRoomSearch) {
-            new SEARCH77().setVisible(true);
-            dispose();
-        } else if (source == btnRoomService) {
-            new RoomService().setVisible(true);
-            dispose();
-        } else if (source instanceof JButton) {
-            JButton clickedButton = (JButton) source;
+        } else if (e.getSource() == btnRoomSearch) {
+        new SEARCH77().setVisible(true); 
+        dispose(); 
+    } else if (e.getSource() == btnTypesOfRoom) {
+        new ROOMS().setVisible(true); 
+            dispose(); 
+    } else if (e.getSource() instanceof JButton) {
+            JButton clickedButton = (JButton) e.getSource();
             String buttonText = clickedButton.getText();
 
             int selectedRow = table.getSelectedRow();
@@ -118,7 +118,7 @@ public class Homepage extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(this, "Please select a row to delete");
                     }
                     break;
- 
+
                 case "Add":
                     String name = JOptionPane.showInputDialog(this, "Enter Name:");
                     String contact = JOptionPane.showInputDialog(this, "Enter Contact:");

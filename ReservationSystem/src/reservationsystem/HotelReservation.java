@@ -8,95 +8,105 @@ package reservationsystem;
 
 
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public class HotelReservation extends JFrame implements ActionListener {
 
-    private JLabel lblReservationDetails, lblCheckIn, lblCheckOut,lblRoomType;
-    private JTextField txtCheckIn, txtCheckOut;
-    private JComboBox<String> comboRoomType;
-    private JButton btnSearch,btnReserve;
-    
-    
-    public  HotelReservation () {
-        setTitle("Reservation Area");
+    private Container container;
+    private JLabel lbltitle, lblname, lblcheckIn, lblcheckOut, lblcontact;
+    private JTextField txtname, txtcheckIn, txtcheckOut,txtcontact;
+    private JButton btnNext;
+
+    public HotelReservation() {
+        setTitle("Hotel Reservation");
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
-        
-        lblReservationDetails = new JLabel("Reservation Details");
-        lblReservationDetails.setBounds(20, 20, 150, 25);
-        add(lblReservationDetails);
-        
-        lblCheckIn = new JLabel("Check-in Date:");
-        lblCheckIn.setBounds(20, 60, 100, 25);
-        add(lblCheckIn);
-        
-        txtCheckIn = new JTextField();
-        txtCheckIn.setBounds(130, 60, 120, 25);
-        add(txtCheckIn);
-        
-        lblCheckOut = new JLabel("Check-out Date:");
-        lblCheckOut.setBounds(20, 100, 100, 25);
-        add(lblCheckOut);
-        
-        txtCheckOut = new JTextField();
-        txtCheckOut.setBounds(130, 100, 120, 25);
-        add(txtCheckOut);
-        
-        lblRoomType = new JLabel("Room Type:");
-        lblRoomType.setBounds(20, 140, 100, 25);
-        add(lblRoomType);
-        
-        String[] roomTypes = {"Single", "Double", "Suite"};
-        comboRoomType = new JComboBox<>(roomTypes);
-        comboRoomType.setBounds(130, 140, 120, 25);
-        add(comboRoomType);
-        
-        btnSearch = new JButton("Search Rooms");
-        btnSearch.setBounds(280, 60, 150, 25);
-        btnSearch.addActionListener(this);
-        add(btnSearch);
-        
-        btnReserve = new JButton("Reserve Room");
-        btnReserve.setBounds(280, 100, 150, 25);
-        btnReserve.addActionListener(this);
-        add(btnReserve);
-        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+
+        container = getContentPane();
+        container.setLayout(null);
+
+       
+        container.setBackground(new Color(215, 230, 243)); 
+
+       lbltitle = new JLabel("Reservation Area");
+       lbltitle.setFont(new Font("Arial", Font.BOLD, 24));
+        lbltitle.setBounds(150, 30, 300, 30); 
+        container.add(lbltitle);
+
+        lblname = new JLabel("Name:");
+        lblname.setFont(new Font("Arial", Font.PLAIN, 18));
+        lblname.setBounds(50, 80, 100, 30); 
+        container.add(lblname);
+
+       txtname = new JTextField();
+        txtname.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtname.setBounds(160, 80, 400, 30); 
+        container.add(txtname);
+
+        lblcheckIn = new JLabel("Check-in Date:");
+        lblcheckIn.setFont(new Font("Arial", Font.PLAIN, 18));
+        lblcheckIn.setBounds(50, 130, 150, 30); 
+        container.add(lblcheckIn);
+
+        txtcheckIn = new JTextField();
+        txtcheckIn.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtcheckIn.setBounds(210, 130, 350, 30); 
+        container.add(txtcheckIn);
+
+        lblcheckOut = new JLabel("Check-out Date:");
+        lblcheckOut.setFont(new Font("Arial", Font.PLAIN, 18));
+        lblcheckOut.setBounds(50, 180, 150, 30); 
+        container.add(lblcheckOut);
+
+         txtcheckOut = new JTextField();
+        txtcheckOut.setFont(new Font("Arial", Font.PLAIN, 18));
+         txtcheckOut.setBounds(210, 180, 350, 30); 
+        container.add( txtcheckOut);
+
+        lblcontact = new JLabel("Contact Number:");
+        lblcontact.setFont(new Font("Arial", Font.PLAIN, 18));
+       lblcontact.setBounds(50, 230, 200, 30); 
+        container.add(lblcontact);
+
+        txtcontact = new JTextField();
+        txtcontact.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtcontact.setBounds(250, 230, 310, 30); 
+        container.add(txtcontact);
+
+        btnNext = new JButton("Next");
+        btnNext.setFont(new Font("Arial", Font.PLAIN, 18));
+        btnNext.setBounds(250, 290, 100, 40); 
+        btnNext.addActionListener(this);
+        container.add(btnNext);
+
         setVisible(true);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnSearch) {
+        if (e.getSource() == btnNext) {
             
-            String checkInDate = txtCheckIn.getText();
-            String checkOutDate = txtCheckOut.getText();
-            String selectedRoomType = (String) comboRoomType.getSelectedItem();
+            String name = txtname.getText();
+            String checkInDate = txtcheckIn.getText();
+            String checkOutDate = txtcheckOut.getText();
+            String contactNumber = txtcontact.getText();
+
             
-            JOptionPane.showMessageDialog(this, "Searching rooms...\n"
-                    + "Check-in: " + checkInDate + "\n"
-                    + "Check-out: " + checkOutDate + "\n"
-                    + "Room Type: " + selectedRoomType);
-            
-        } else if (e.getSource() == btnReserve) {
-            
-            String checkInDate = txtCheckIn.getText();
-            String checkOutDate = txtCheckOut.getText();
-            String selectedRoomType = (String) comboRoomType.getSelectedItem();
-            
-            JOptionPane.showMessageDialog(this, "Reserving room...\n"
-                    + "Check-in: " + checkInDate + "\n"
-                    + "Check-out: " + checkOutDate + "\n"
-                    + "Room Type: " + selectedRoomType);
-            
-            
-            SEARCH77 s = new SEARCH77();
-            s.setVisible(true);
-            dispose(); // Close the current ReservationArea frame
-            
+            RoomTypes roomTypesFrame = new RoomTypes(name, checkInDate, checkOutDate, contactNumber);
+            roomTypesFrame.setVisible(true);
+
+           
+            dispose();
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new HotelReservation();
+        });
     }
 }

@@ -1,35 +1,39 @@
-import java.awt.Image;
+package reservationsystem;
+
+
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SEARCH77 extends JFrame implements ActionListener {
 
-    private JLabel lblRoomType, lblCheckIn, lblCheckOut,bg;
+    private JLabel lblRoomType, lblCheckIn, lblCheckOut;
     private JComboBox<String> comboRoomType;
     private JTextField txtCheckIn, txtCheckOut;
-    private JButton btnSearch, btnClear;
+    private JButton btnSearch, btnCancel;
+    private JTextArea resultArea;
 
     public SEARCH77() {
-        setTitle("SEARCH ROOM");
+        setTitle("Search Room");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         
-         bg = new JLabel();
-        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\BANKRESERVATION\\src\\bgimg.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
-        bg.setBounds(0, 0, 600, 400);
-       
-        lblRoomType = new JLabel("ROOM TYPE:");
+        lblRoomType = new JLabel("Room Type:");
         lblRoomType.setBounds(50, 50, 100, 25);
         add(lblRoomType);
         
-        String[] roomTypes = {"SINGLE BED", "DOUBLE BEDS","TRIPLE BEDS"," VIP SUITE","PRESIDENTIAL ROOM"};
+        String[] roomTypes = {"Single", "Double", "Suite", "Two-person Room","Balcony Room", 
+            "Family Suite", "Deluxe Room","Superior Deluxe Suite","Executive Suite","Family Deluxe Suite"};
         comboRoomType = new JComboBox<>(roomTypes);
         comboRoomType.setBounds(150, 50, 150, 25);
         add(comboRoomType);
         
-        lblCheckIn = new JLabel("CHECK-IN DATE:");
+        lblCheckIn = new JLabel("Check-in Date:");
         lblCheckIn.setBounds(50, 100, 100, 25);
         add(lblCheckIn);
         
@@ -37,26 +41,32 @@ public class SEARCH77 extends JFrame implements ActionListener {
         txtCheckIn.setBounds(150, 100, 150, 25);
         add(txtCheckIn);
         
-        lblCheckOut = new JLabel("CHECK-OUT DATE:");
-        lblCheckOut.setBounds(50, 150, 150, 25);
+        lblCheckOut = new JLabel("Check-out Date:");
+        lblCheckOut.setBounds(50, 150, 100, 25);
         add(lblCheckOut);
         
         txtCheckOut = new JTextField();
-        txtCheckOut.setBounds(165, 150, 150, 25);
+        txtCheckOut.setBounds(150, 150, 150, 25);
         add(txtCheckOut);
         
-        btnSearch = new JButton("SEARCH");
+        btnSearch = new JButton("Search");
         btnSearch.setBounds(50, 200, 100, 30);
         btnSearch.addActionListener(this);
         add(btnSearch);
         
-        btnClear = new JButton("CLEAR");
-        btnClear.setBounds(200, 200, 100, 30);
-        btnClear.addActionListener(this);
-        add(btnClear);
-        add(bg);
+        btnCancel = new JButton("Cancel");
+        btnCancel.setBounds(200, 200, 100, 30);
+        btnCancel.addActionListener(this);
+        add(btnCancel);
         
-        setVisible(true);
+        resultArea = new JTextArea();
+        resultArea.setBounds(50, 250, 500, 100);
+        resultArea.setEditable(false);
+        add(resultArea);
+    }
+
+    SEARCH77(Homepage aThis) {
+        
     }
 
     @Override
@@ -65,19 +75,37 @@ public class SEARCH77 extends JFrame implements ActionListener {
             String roomType = (String) comboRoomType.getSelectedItem();
             String checkInDate = txtCheckIn.getText();
             String checkOutDate = txtCheckOut.getText();
-            
-            SEARCH77 rs = new SEARCH77();
-            rs.setVisible(true);
-            dispose();
-            
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date checkIn = null;
+            Date checkOut = null;
+            try {
+                checkIn = sdf.parse(checkInDate);
+                checkOut = sdf.parse(checkOutDate);
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid date format. Use yyyy-MM-dd.");
+                return;
+            }
+
            
-            JOptionPane.showMessageDialog(this, "Searching for " + roomType + " rooms from " + checkInDate + " to " + checkOutDate);
-        } else if (e.getSource() == btnClear) {
-            comboRoomType.setSelectedIndex(0);
-            txtCheckIn.setText("");
-            txtCheckOut.setText("");
-            
-            
-        }
+            boolean isAvailable = true; 
+
+            if (isAvailable) {
+                resultArea.setText("Room type '" + roomType + "' is available from " + checkInDate + " to " + checkOutDate);
+            } else {
+                resultArea.setText("Room type '" + roomType + "' is not available from " + checkInDate + " to " + checkOutDate);
+            }
+        } else if (e.getSource() == btnCancel) {
+           
+            HotelReservation hotelReservation = new HotelReservation();
+            hotelReservation.setVisible(true);
+            this.dispose(); 
+    }
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            SEARCH77 searchFrame = new SEARCH77();
+            searchFrame.setVisible(true);
+        });
     }
 }

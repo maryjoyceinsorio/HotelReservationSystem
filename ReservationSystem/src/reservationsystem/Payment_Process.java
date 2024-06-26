@@ -22,9 +22,10 @@ public class Payment_Process {
            EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                
            
-                Payment payment = new Payment();
-                payment.setVisible(true);
+               // Payment paymentFrame = new Payment();
+              //  payment.setVisible(true);
             }
         });
     }
