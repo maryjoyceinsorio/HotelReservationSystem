@@ -127,7 +127,7 @@ public class RoomTypes extends JFrame implements ActionListener {
 
         reservationTextArea.setText(reservationDetails);
     }
- 
+  
     private void openPaymentWindow(int totalAmount) {
         Payment paymentFrame = new Payment(String.format("%.2f", (double) totalAmount));
         paymentFrame.setVisible(true);

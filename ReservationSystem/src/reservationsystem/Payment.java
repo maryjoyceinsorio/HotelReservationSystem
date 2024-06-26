@@ -50,7 +50,7 @@ public class Payment extends JFrame implements ActionListener {
         add(btnPay);
         setVisible(true);
     }
- 
+  
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnPay) {
