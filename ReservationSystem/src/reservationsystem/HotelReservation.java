@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package hotel;
+package reservationsystem;
 
 
 
@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class reservation extends JFrame implements ActionListener {
+public class HotelReservation extends JFrame implements ActionListener {
 
     private JLabel lblReservationDetails, lblCheckIn, lblCheckOut,lblRoomType;
     private JTextField txtCheckIn, txtCheckOut;
@@ -20,7 +20,7 @@ public class reservation extends JFrame implements ActionListener {
     private JButton btnSearch,btnReserve;
     
     
-    public reservation () {
+    public  HotelReservation () {
         setTitle("Reservation Area");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
