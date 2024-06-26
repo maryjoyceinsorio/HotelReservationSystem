@@ -29,7 +29,7 @@ public class Homepage extends JFrame implements ActionListener {
         btnReservationAreaHeader.setBounds(50, 70, 150, 30);
         btnReservationAreaHeader.addActionListener(this);
         add(btnReservationAreaHeader);
-
+ 
         btnTypesOfRoom = new JButton("Types of Room");
         btnTypesOfRoom.setBounds(225, 70, 150, 30);
         btnTypesOfRoom.addActionListener(this);
