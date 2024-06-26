@@ -1,87 +1,83 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-
-
-package reservationsystem;
-import java.awt.Font;
-import java.awt.event.*;
+import java.awt.Image;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-/**
- *
- */
-public class SEARCH77 implements ActionListener {
-    
-    private JFrame f = new JFrame("search");
-    private JLabel lblROOM,lblNOOFBEDS, lblSearchResults;
-    private JTextField txtfldROOM = new JTextField();
-    private JTextField txtfldNOOFBEDS = new JTextField();
-    private JButton btnSEARCH, btnReset;
-   
+public class SEARCH77 extends JFrame implements ActionListener {
 
-    
-    SEARCH77(){
-    
-    f.setSize(450, 300);
-    f.setLayout(null);
-    f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
-    
-    lblROOM = new JLabel("TYPE OF ROOM :");
-    lblROOM.setBounds(20, 50, 150, 30);
-    lblROOM.setFont(new Font("Arial Black", Font.BOLD, 15));
-    
-    lblNOOFBEDS = new JLabel("NO. OF BEDS:");
-    lblNOOFBEDS.setBounds(20, 100, 120, 30);
-    lblNOOFBEDS.setFont(new Font("Arial Black", Font.BOLD, 15));
-    
-    txtfldROOM.setBounds(180, 50, 140,30);
-    txtfldROOM.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-    txtfldNOOFBEDS.setBounds(180, 100, 140,30);
-    txtfldNOOFBEDS.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-    
-    btnSEARCH = new JButton("SEARCH");
-    btnSEARCH.setBounds(30, 150, 120, 30);
-    btnSEARCH.setFont(new Font("Arial Black", Font.PLAIN, 15));
-    btnSEARCH.addActionListener(this);
-   
-    btnReset = new JButton("CLEAR");
-    btnReset.setBounds(160, 150, 120, 30);
-    btnReset.setFont(new Font("Arial Black", Font.PLAIN, 15));
-    btnReset.addActionListener(this);
-    
-    lblSearchResults = new JLabel("");
-    lblSearchResults.setBounds(20, 200, 480, 30);
-    lblSearchResults.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-    f.add(lblROOM);
-    f.add(lblNOOFBEDS);
-    f.add(lblROOM);
-    f.add(txtfldROOM);
-    f.add(txtfldNOOFBEDS);
-    f.add(btnSEARCH);
-    f.add(btnReset);
-    f.add(lblSearchResults);
-    
-   
-    f.setVisible(true);
-    f.setResizable(false);
+    private JLabel lblRoomType, lblCheckIn, lblCheckOut,bg;
+    private JComboBox<String> comboRoomType;
+    private JTextField txtCheckIn, txtCheckOut;
+    private JButton btnSearch, btnClear;
+
+    public SEARCH77() {
+        setTitle("SEARCH ROOM");
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
         
+         bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\BANKRESERVATION\\src\\bgimg.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
+        bg.setBounds(0, 0, 600, 400);
+       
+        lblRoomType = new JLabel("ROOM TYPE:");
+        lblRoomType.setBounds(50, 50, 100, 25);
+        add(lblRoomType);
         
+        String[] roomTypes = {"SINGLE BED", "DOUBLE BEDS","TRIPLE BEDS"," VIP SUITE","PRESIDENTIAL ROOM"};
+        comboRoomType = new JComboBox<>(roomTypes);
+        comboRoomType.setBounds(150, 50, 150, 25);
+        add(comboRoomType);
         
+        lblCheckIn = new JLabel("CHECK-IN DATE:");
+        lblCheckIn.setBounds(50, 100, 100, 25);
+        add(lblCheckIn);
+        
+        txtCheckIn = new JTextField();
+        txtCheckIn.setBounds(150, 100, 150, 25);
+        add(txtCheckIn);
+        
+        lblCheckOut = new JLabel("CHECK-OUT DATE:");
+        lblCheckOut.setBounds(50, 150, 150, 25);
+        add(lblCheckOut);
+        
+        txtCheckOut = new JTextField();
+        txtCheckOut.setBounds(165, 150, 150, 25);
+        add(txtCheckOut);
+        
+        btnSearch = new JButton("SEARCH");
+        btnSearch.setBounds(50, 200, 100, 30);
+        btnSearch.addActionListener(this);
+        add(btnSearch);
+        
+        btnClear = new JButton("CLEAR");
+        btnClear.setBounds(200, 200, 100, 30);
+        btnClear.addActionListener(this);
+        add(btnClear);
+        add(bg);
+        
+        setVisible(true);
     }
+
     @Override
-    public void actionPerformed(ActionEvent e){
-        
-        
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnSearch) {
+            String roomType = (String) comboRoomType.getSelectedItem();
+            String checkInDate = txtCheckIn.getText();
+            String checkOutDate = txtCheckOut.getText();
+            
+            SEARCH77 rs = new SEARCH77();
+            rs.setVisible(true);
+            dispose();
+            
+           
+            JOptionPane.showMessageDialog(this, "Searching for " + roomType + " rooms from " + checkInDate + " to " + checkOutDate);
+        } else if (e.getSource() == btnClear) {
+            comboRoomType.setSelectedIndex(0);
+            txtCheckIn.setText("");
+            txtCheckOut.setText("");
+            
+            
+        }
     }
-
-    public void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }
