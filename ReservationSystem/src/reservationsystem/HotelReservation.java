@@ -98,7 +98,7 @@ public class HotelReservation extends JFrame implements ActionListener {
             Date checkOutDate = (Date) spnCheckOut.getValue();
             String contactNumber = txtcontact.getText();
 
-            // Assuming RoomTypes class is defined separately for your application
+            
             RoomTypes roomTypesFrame = new RoomTypes(name, checkInDate, checkOutDate, contactNumber);
             roomTypesFrame.setVisible(true);
 
