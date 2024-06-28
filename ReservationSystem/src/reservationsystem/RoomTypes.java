@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,14 +22,15 @@ public class RoomTypes extends JFrame implements ActionListener {
     private JButton btnReviewReservation, btnPayment;
     private JTextArea reservationTextArea;
     private Map<String, Integer> roomPrices;
-    private String customerName, checkInDate, checkOutDate, contactNumber;
-   
+    private String customerName, contactNumber;
+    private Date checkInDate, checkOutDate;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public RoomTypes(String name, String checkIn, String checkOut, String contact) {
+    public RoomTypes(String name, Date checkInDate, Date checkOutDate, String contactNumber) {
         this.customerName = name;
-        this.checkInDate = checkIn;
-        this.checkOutDate = checkOut;
-        this.contactNumber = contact;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.contactNumber = contactNumber;
 
         initializeUI();
         setupComponents();
@@ -35,32 +38,28 @@ public class RoomTypes extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    RoomTypes() {}
-
     private void initializeUI() {
         setTitle("Hotel Room Type Selection");
         setSize(600, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-
         container = getContentPane();
         container.setLayout(new BorderLayout());
-
-        
-         container.setBackground(new Color(215, 230, 243));  
+        container.setBackground(new Color(215, 230, 243));
     }
 
     private void setupComponents() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(null); 
+        mainPanel.setLayout(null);
 
-       lbltitle = new JLabel("Select Room Type");
+        lbltitle = new JLabel("Select Room Type");
         lbltitle.setFont(new Font("Arial", Font.BOLD, 24));
-        lbltitle.setBounds(200, 30, 250, 30); 
+        lbltitle.setBounds(200, 30, 250, 30);
+        mainPanel.add(lbltitle);
 
-       lblroomType = new JLabel("Room Type:");
-       lblroomType.setFont(new Font("Arial", Font.PLAIN, 18));
-       lblroomType.setBounds(50, 80, 100, 20);
+        lblroomType = new JLabel("Room Type:");
+        lblroomType.setFont(new Font("Arial", Font.PLAIN, 18));
+        lblroomType.setBounds(50, 80, 100, 20);
         mainPanel.add(lblroomType);
 
         roomTypeComboBox = new JComboBox<>();
@@ -69,19 +68,19 @@ public class RoomTypes extends JFrame implements ActionListener {
         mainPanel.add(roomTypeComboBox);
 
         btnReviewReservation = new JButton("Review Reservation");
-        btnReviewReservation.setFont(new Font("Arial", Font.PLAIN, 18)); 
-        btnReviewReservation.setBounds(50, 130, 220, 35);
+        btnReviewReservation.setFont(new Font("Arial", Font.PLAIN, 18));
+        btnReviewReservation.setBounds(50, 130, 220, 25);
         btnReviewReservation.addActionListener(this);
         mainPanel.add(btnReviewReservation);
 
         btnPayment = new JButton("Payment");
-        btnPayment.setFont(new Font("Arial", Font.PLAIN, 18)); 
-        btnPayment.setBounds(280, 130, 150, 35); 
+        btnPayment.setFont(new Font("Arial", Font.PLAIN, 18));
+        btnPayment.setBounds(280, 130, 150, 25);
         btnPayment.addActionListener(this);
         mainPanel.add(btnPayment);
 
         reservationTextArea = new JTextArea();
-        reservationTextArea.setFont(new Font("Arial", Font.PLAIN, 16)); 
+        reservationTextArea.setFont(new Font("Arial", Font.PLAIN, 16));
         reservationTextArea.setBounds(50, 180, 500, 250);
         reservationTextArea.setEditable(false);
         mainPanel.add(reservationTextArea);
@@ -99,7 +98,7 @@ public class RoomTypes extends JFrame implements ActionListener {
         roomPrices.put("Superior Deluxe Suite", 2585);
         roomPrices.put("Executive Suite", 2885);
         roomPrices.put("Family Deluxe Suite", 2985);
- 
+
         roomTypeComboBox.setModel(new DefaultComboBoxModel<>(roomPrices.keySet().toArray(new String[0])));
     }
 
@@ -121,22 +120,17 @@ public class RoomTypes extends JFrame implements ActionListener {
         reservationDetails += "Room Type: " + roomType + "\n";
         reservationDetails += "Price: $" + price + "\n";
         reservationDetails += "Name: " + customerName + "\n";
-        reservationDetails += "Check-in Date: " + checkInDate + "\n";
-        reservationDetails += "Check-out Date: " + checkOutDate + "\n";
+        reservationDetails += "Check-in Date: " + dateFormat.format(checkInDate) + "\n";
+        reservationDetails += "Check-out Date: " + dateFormat.format(checkOutDate) + "\n";
         reservationDetails += "Contact Number: " + contactNumber + "\n";
 
         reservationTextArea.setText(reservationDetails);
     }
-  
+
     private void openPaymentWindow(int totalAmount) {
         Payment paymentFrame = new Payment(String.format("%.2f", (double) totalAmount));
         paymentFrame.setVisible(true);
         dispose();
     }
-      
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            RoomTypes roomTypes = new RoomTypes("John Doe", "2024-07-01", "2024-07-05", "1234567890");
-        });
-    }
+
 }

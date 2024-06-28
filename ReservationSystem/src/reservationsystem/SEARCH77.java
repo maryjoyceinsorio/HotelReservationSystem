@@ -13,8 +13,8 @@ public class SEARCH77 extends JFrame implements ActionListener {
 
     private JLabel lblRoomType, lblCheckIn, lblCheckOut;
     private JComboBox<String> comboRoomType;
-    private JTextField txtCheckIn, txtCheckOut;
-    private JButton btnSearch, btnCancel;
+    private JSpinner spnCheckIn, spnCheckOut;
+    private JButton btnSearch,  btnreservation;
     private JTextArea resultArea;
 
     public SEARCH77() {
@@ -37,27 +37,31 @@ public class SEARCH77 extends JFrame implements ActionListener {
         lblCheckIn.setBounds(50, 100, 100, 25);
         add(lblCheckIn);
         
-        txtCheckIn = new JTextField();
-        txtCheckIn.setBounds(150, 100, 150, 25);
-        add(txtCheckIn);
+        spnCheckIn = new JSpinner(new SpinnerDateModel());
+        spnCheckIn.setBounds(150, 100, 150, 25);
+        JSpinner.DateEditor checkInEditor = new JSpinner.DateEditor(spnCheckIn, "yyyy-MM-dd");
+        spnCheckIn.setEditor(checkInEditor);
+        add(spnCheckIn);
         
         lblCheckOut = new JLabel("Check-out Date:");
         lblCheckOut.setBounds(50, 150, 100, 25);
         add(lblCheckOut);
         
-        txtCheckOut = new JTextField();
-        txtCheckOut.setBounds(150, 150, 150, 25);
-        add(txtCheckOut);
+        spnCheckOut = new JSpinner(new SpinnerDateModel());
+        spnCheckOut.setBounds(150, 150, 150, 25);
+        JSpinner.DateEditor checkOutEditor = new JSpinner.DateEditor(spnCheckOut, "yyyy-MM-dd");
+        spnCheckOut.setEditor(checkOutEditor);
+        add(spnCheckOut);
         
         btnSearch = new JButton("Search");
         btnSearch.setBounds(50, 200, 100, 30);
         btnSearch.addActionListener(this);
         add(btnSearch);
         
-        btnCancel = new JButton("Cancel");
-        btnCancel.setBounds(200, 200, 100, 30);
-        btnCancel.addActionListener(this);
-        add(btnCancel);
+        btnreservation = new JButton("Reservation");
+        btnreservation.setBounds(200, 200, 120, 30);
+         btnreservation.addActionListener(this);
+        add( btnreservation);
         
         resultArea = new JTextArea();
         resultArea.setBounds(50, 250, 500, 100);
@@ -65,47 +69,29 @@ public class SEARCH77 extends JFrame implements ActionListener {
         add(resultArea);
     }
 
-    SEARCH77(Homepage aThis) {
-        
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSearch) {
             String roomType = (String) comboRoomType.getSelectedItem();
-            String checkInDate = txtCheckIn.getText();
-            String checkOutDate = txtCheckOut.getText();
+            Date checkIn = (Date) spnCheckIn.getValue();
+            Date checkOut = (Date) spnCheckOut.getValue();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date checkIn = null;
-            Date checkOut = null;
-            try {
-                checkIn = sdf.parse(checkInDate);
-                checkOut = sdf.parse(checkOutDate);
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(this, "Invalid date format. Use yyyy-MM-dd.");
-                return;
-            }
+            String checkInDate = sdf.format(checkIn);
+            String checkOutDate = sdf.format(checkOut);
 
-           
-            boolean isAvailable = true; 
+            boolean isAvailable = true; // Replace this with actual logic to check room availability
 
             if (isAvailable) {
                 resultArea.setText("Room type '" + roomType + "' is available from " + checkInDate + " to " + checkOutDate);
             } else {
                 resultArea.setText("Room type '" + roomType + "' is not available from " + checkInDate + " to " + checkOutDate);
             }
-        } else if (e.getSource() == btnCancel) {
-           
+        } else if (e.getSource() ==  btnreservation) {
             HotelReservation hotelReservation = new HotelReservation();
             hotelReservation.setVisible(true);
-            this.dispose(); 
-    }
-    }
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            SEARCH77 searchFrame = new SEARCH77();
-            searchFrame.setVisible(true);
-        });
+            this.dispose();
+        }
     }
 }
+ 

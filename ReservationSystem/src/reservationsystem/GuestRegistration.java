@@ -1,5 +1,6 @@
 package reservationsystem;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,7 @@ public class GuestRegistration extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+         getContentPane().setBackground(Color.LIGHT_GRAY);
         
         lblTitle = new JLabel("Sign-Up");
         lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
@@ -85,14 +87,4 @@ public class GuestRegistration extends JFrame implements ActionListener {
         }
     }
     
-   public static void main(String[] args) {
-         EventQueue.invokeLater(new Runnable() {
-          
-
-             @Override
-             public void run() {
-                new GuestRegistration();
-             }
-        });
-    }
 }

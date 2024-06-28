@@ -5,19 +5,28 @@
  */
 package reservationsystem;
 
+import java.awt.EventQueue;
+
 /**
  *
  * @author user
  */
-public class Room_Service {
+public class GuestRegistrationM {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-        RoomService roomservice = new RoomService();
+         EventQueue.invokeLater(new Runnable() {
+          
+
+             @Override
+             public void run() {
+                new GuestRegistration();
+             }
+        });
     }
-    
 }
+    
+    
+
