@@ -1,5 +1,7 @@
 package reservationsystem;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -17,6 +19,7 @@ public class Homepage extends JFrame implements ActionListener {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+         getContentPane().setBackground(Color.LIGHT_GRAY);
 
         JLabel lblWelcome = new JLabel("Welcome to Hotel Reservation System");
         lblWelcome.setBounds(150, 20, 500, 30);
@@ -25,17 +28,17 @@ public class Homepage extends JFrame implements ActionListener {
         add(lblWelcome);
 
         btnReservationAreaHeader = new JButton("Reservation Area");
-        btnReservationAreaHeader.setBounds(50, 70, 150, 30);
+        btnReservationAreaHeader.setBounds(150, 70, 150, 30);
         btnReservationAreaHeader.addActionListener(this);
         add(btnReservationAreaHeader);
 
         btnTypesOfRoom = new JButton("Types of Room");
-        btnTypesOfRoom.setBounds(225, 70, 150, 30);
+        btnTypesOfRoom.setBounds(325, 70, 150, 30);
         btnTypesOfRoom.addActionListener(this);
         add(btnTypesOfRoom);
 
         btnRoomSearch = new JButton("Room Search");
-        btnRoomSearch.setBounds(400, 70, 150, 30);
+        btnRoomSearch.setBounds(500, 70, 150, 30);
         btnRoomSearch.addActionListener(this);
         add(btnRoomSearch);
 
@@ -54,16 +57,19 @@ public class Homepage extends JFrame implements ActionListener {
 
         JButton btnUpdate = new JButton("Update");
         btnUpdate.setBounds(150, 400, 150, 30);
+        btnUpdate.setFont(new Font("Arial", Font.BOLD, 15));
         btnUpdate.addActionListener(this);
         add(btnUpdate);
 
         JButton btnDelete = new JButton("Delete");
         btnDelete.setBounds(325, 400, 150, 30);
         btnDelete.addActionListener(this);
+        btnDelete.setFont(new Font("Arial", Font.BOLD, 15));
         add(btnDelete);
 
         JButton btnAdd = new JButton("Add");
         btnAdd.setBounds(500, 400, 150, 30);
+        btnAdd.setFont(new Font("Arial", Font.BOLD, 15));
         btnAdd.addActionListener(this);
         add(btnAdd);
 

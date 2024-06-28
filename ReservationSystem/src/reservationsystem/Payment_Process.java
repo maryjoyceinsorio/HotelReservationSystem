@@ -24,8 +24,8 @@ public class Payment_Process {
             public void run() {
                 
            
-               // Payment paymentFrame = new Payment();
-              //  payment.setVisible(true);
+                Payment paymentFrame = new Payment();
+                paymentFrame.setVisible(true);
             }
         });
     }

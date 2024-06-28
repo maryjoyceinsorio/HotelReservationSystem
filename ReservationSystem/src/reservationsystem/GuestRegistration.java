@@ -45,8 +45,11 @@ public class GuestRegistration extends JFrame implements ActionListener {
         
         btnsignup = new JButton("Sign-Up");
         btnsignup.setBounds(200, 250, 100, 30);
+        btnsignup.setFont(new Font("Arial", Font.BOLD, 15));
+        
         btnback = new JButton("Back");
         btnback.setBounds(320, 250, 100, 30);
+        btnback.setFont(new Font("Arial", Font.BOLD, 15));
         
         btnsignup.addActionListener(this);
         btnback.addActionListener(this);

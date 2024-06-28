@@ -25,6 +25,7 @@ public class HotelReservation extends JFrame implements ActionListener {
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+         getContentPane().setBackground(Color.LIGHT_GRAY);
 
         container = getContentPane();
         container.setLayout(null);

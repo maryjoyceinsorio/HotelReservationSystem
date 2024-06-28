@@ -19,6 +19,8 @@ public class ROOMS extends JFrame {
         setTitle("Room Types");
         setSize(600, 400); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         getContentPane().setBackground(Color.LIGHT_GRAY);
+         
         setLayout(null);
         setBackground(new Color(215, 230, 243)); 
 
@@ -63,8 +65,12 @@ public class ROOMS extends JFrame {
         add(lblFamily);
 
         btnBack = new JButton("Back to Homepage");
-        btnBack.setBounds(200, 250, 150, 30);
-        btnBack.addActionListener(new ActionListener() {
+        btnBack.setBounds(200, 250, 180, 30);
+        btnBack.setFont(new Font("Arial", Font.BOLD , 15));
+        
+        
+        btnBack.addActionListener(new ActionListener() 
+        {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Code to go back to homepage

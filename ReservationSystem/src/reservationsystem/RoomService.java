@@ -1,6 +1,7 @@
 package reservationsystem;
 
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -85,6 +86,7 @@ public class RoomService extends JFrame implements ActionListener {
         
         btnMinusDinner = new JButton("-");
         btnMinusDinner.setBounds(260, 150, 50, 30);
+        
         add(btnMinusDinner);
         
         cmbSizeDinner = new JComboBox<>(new String[] {"Mushroom Risotto","Grilled Chicken", "Seared Scallops","Steaks"});
@@ -94,11 +96,14 @@ public class RoomService extends JFrame implements ActionListener {
         
         btnReviewOrder = new JButton("Review Room Service");
         btnReviewOrder.setBounds(50, 200, 200, 30);
+        btnReviewOrder.setFont(new Font("Arial", Font.BOLD, 15));
         add(btnReviewOrder);
         
         
         btnPayment = new JButton("Payment");
         btnPayment.setBounds(270, 200, 150, 30);
+        btnPayment.setFont(new Font("Arial", Font.BOLD, 15));
+                
         add(btnPayment);
         
         

@@ -20,9 +20,11 @@ public class Payment extends JFrame implements ActionListener {
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+         getContentPane().setBackground(Color.LIGHT_GRAY);
         
         lblPayment = new JLabel("Payment Details");
         lblPayment.setBounds(20, 20, 150, 25);
+        
         
         lblAmount = new JLabel("Total Amount:");
         lblAmount.setBounds(20, 60, 100, 25);
@@ -41,9 +43,10 @@ public class Payment extends JFrame implements ActionListener {
         btnPay = new JButton("Pay Now");
         btnPay.setBounds(100, 150, 100, 25);
         btnPay.addActionListener(this);
+        btnPay.setFont(new Font("Arial", Font.BOLD, 15));
         
         add(lblPayment);
-        add(lblAmount);
+    
         add(txtAmount);
         add(lblPaymentMethod);
         add(comboPaymentMethod);

@@ -1,5 +1,7 @@
 package reservationsystem;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -22,7 +24,8 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        
+        getContentPane().setBackground(Color.LIGHT_GRAY);
+    
         lbllog = new JLabel("Login");
         lbllog.setBounds(250, 20, 100, 30);
         
@@ -38,8 +41,13 @@ public class Login extends JFrame implements ActionListener {
         
         btnlogin = new JButton("Login");
         btnlogin.setBounds(200, 200, 100, 30);
+        btnlogin.setFont(new Font("Arial", Font.BOLD,15));
+        
         btnback = new JButton("Back");
         btnback.setBounds(320, 200, 100, 30);
+         btnback.setFont(new Font("Arial", Font.BOLD, 15));
+       
+                
         
         btnlogin.addActionListener(this);
         btnback.addActionListener(this);
@@ -58,6 +66,7 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource() == btnlogin) {
             String username = txtuser.getText();
             String password = new String(pass.getPassword());
+            
 
             if (validateLogin(username, password)) {
                 JOptionPane.showMessageDialog(this, "Login successful!");
@@ -65,7 +74,13 @@ public class Login extends JFrame implements ActionListener {
                 dispose(); 
              
                 new Homepage().setVisible(true); 
-            } else {
+            } else if(e.getSource() == btnback){
+            
+             new GuestRegistration();
+                dispose();
+            }
+              
+            else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
             new GuestRegistration().setVisible(true);
             
