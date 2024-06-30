@@ -12,7 +12,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Calendar;
 
 public class HotelReservation extends JFrame implements ActionListener {
 
@@ -21,8 +28,11 @@ public class HotelReservation extends JFrame implements ActionListener {
     private JTextField txtname, txtcontact;
     private JButton btnNext;
     private JSpinner spnCheckIn, spnCheckOut;
+    private Connection connection;
 
     public HotelReservation() {
+        connectToDatabase(); // Initialize database connection
+
         setTitle("Hotel Reservation");
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -90,6 +100,38 @@ public class HotelReservation extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    private void connectToDatabase() {
+        try {
+            String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+            String user = "root"; 
+            String password = "123456"; 
+
+            connection = DriverManager.getConnection(url, user, password);
+            System.out.println("Database connected successfully.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database connection failed!");
+        }
+    }
+
+    private void insertReservation(String name, Date checkInDate, Date checkOutDate, String contactNumber, String roomType, int price) {
+        String sql = "INSERT INTO reservations (name, check_in_date, check_out_date, contact_number, room_type, price) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            statement.setDate(2, new java.sql.Date(checkInDate.getTime()));
+            statement.setDate(3, new java.sql.Date(checkOutDate.getTime()));
+            statement.setString(4, contactNumber);
+            statement.setString(5, roomType);
+            statement.setDouble(6, price);
+
+            statement.executeUpdate();
+            System.out.println("Reservation inserted successfully.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to insert reservation.");
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNext) {
@@ -98,12 +140,18 @@ public class HotelReservation extends JFrame implements ActionListener {
             Date checkOutDate = (Date) spnCheckOut.getValue();
             String contactNumber = txtcontact.getText();
 
-            
-            RoomTypes roomTypesFrame = new RoomTypes(name, checkInDate, checkOutDate, contactNumber);
-            roomTypesFrame.setVisible(true);
-
-            dispose();
+            if (validateDates(checkInDate, checkOutDate)) {
+                RoomTypes roomTypesFrame = new RoomTypes(name, checkInDate, checkOutDate, contactNumber);
+                roomTypesFrame.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Check-out date must be after check-in date.", "Invalid Date", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    }
+
+    private boolean validateDates(Date checkInDate, Date checkOutDate) {
+        return checkInDate.before(checkOutDate) || checkInDate.equals(checkOutDate);
     }
 
     public static void main(String[] args) {

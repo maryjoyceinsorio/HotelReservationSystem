@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +28,7 @@ public class RoomTypes extends JFrame implements ActionListener {
     private Map<String, Integer> roomPrices;
     private String customerName, contactNumber;
     private Date checkInDate, checkOutDate;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public RoomTypes(String name, Date checkInDate, Date checkOutDate, String contactNumber) {
         this.customerName = name;
@@ -90,16 +94,32 @@ public class RoomTypes extends JFrame implements ActionListener {
 
     private void setupRoomPrices() {
         roomPrices = new HashMap<>();
-        roomPrices.put("Standard Room", 970);
-        roomPrices.put("Two-person Room", 1140);
-        roomPrices.put("Balcony Room", 1045);
-        roomPrices.put("Family Suite", 1825);
-        roomPrices.put("Deluxe Room", 2045);
-        roomPrices.put("Superior Deluxe Suite", 2585);
-        roomPrices.put("Executive Suite", 2885);
-        roomPrices.put("Family Deluxe Suite", 2985);
+
+        
+        fetchRoomPrices();
 
         roomTypeComboBox.setModel(new DefaultComboBoxModel<>(roomPrices.keySet().toArray(new String[0])));
+    }
+
+    private void fetchRoomPrices() {
+        String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+        String dbUser = "root"; 
+        String dbPassword = "123456"; 
+
+        String query = "SELECT room_type, price FROM room_prices"; 
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root", "123456");
+             java.sql.Statement stmt = conn.createStatement();
+             java.sql.ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                String roomType = rs.getString("room_type");
+                int price = rs.getInt("price");
+                roomPrices.put(roomType, price);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -111,7 +131,11 @@ public class RoomTypes extends JFrame implements ActionListener {
         } else if (e.getSource() == btnPayment) {
             String selectedRoomType = (String) roomTypeComboBox.getSelectedItem();
             int price = roomPrices.get(selectedRoomType);
-            openPaymentWindow(price);
+            if (insertReservationToDB(selectedRoomType, price)) {
+                openPaymentWindow(price);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error saving reservation. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -133,4 +157,30 @@ public class RoomTypes extends JFrame implements ActionListener {
         dispose();
     }
 
+    private boolean insertReservationToDB(String roomType, int price) {
+        String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+        String dbUser = "root";
+        String dbPassword = "123456"; 
+
+        String query = "INSERT INTO reservations (name, check_in_date, check_out_date, contact_number, room_type, price) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, customerName);
+            stmt.setString(2, dateFormat.format(checkInDate));
+            stmt.setString(3, dateFormat.format(checkOutDate));
+            stmt.setString(4, contactNumber);
+            stmt.setString(5, roomType);
+            stmt.setInt(6, price);
+
+            int rowsInserted = stmt.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+ 
 }

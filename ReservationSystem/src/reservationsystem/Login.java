@@ -1,9 +1,16 @@
 package reservationsystem;
 
+
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 
 /**
@@ -79,7 +86,32 @@ public class Login extends JFrame implements ActionListener {
     }
 
     private boolean validateLogin(String username, String password) {
-        return "user".equals(username) && "password".equals(password);
+        boolean isValid = false;
+        String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+        String dbUser = "root"; 
+        String dbPassword = "123456"; 
+
+        String query = "SELECT * FROM guests WHERE username = ? AND password = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    isValid = true;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return isValid;
     }
 
+    public static void main(String[] args) {
+        new Login();
+    }
 }

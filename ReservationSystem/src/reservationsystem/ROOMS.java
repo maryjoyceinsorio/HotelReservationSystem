@@ -73,7 +73,7 @@ public class ROOMS extends JFrame {
         {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Code to go back to homepage
+                
                 Homepage homepage = new Homepage();
                 homepage.setVisible(true);
                 dispose(); 

@@ -6,20 +6,27 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Homepage extends JFrame implements ActionListener {
 
     private JTable table;
     private DefaultTableModel tableModel;
     private JScrollPane scrollPane;
-    private JButton btnReservationAreaHeader, btnTypesOfRoom, btnRoomSearch;
+    private JButton btnReservationAreaHeader, btnTypesOfRoom, btnRoomSearch, btnCancelReservation;
+
+    private final String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+    private final String dbUser = "root";
+    private final String dbPassword = "123456"; 
 
     public Homepage() {
         setTitle("Home Page");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-         getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.LIGHT_GRAY);
 
         JLabel lblWelcome = new JLabel("Welcome to Hotel Reservation System");
         lblWelcome.setBounds(150, 20, 500, 30);
@@ -28,28 +35,27 @@ public class Homepage extends JFrame implements ActionListener {
         add(lblWelcome);
 
         btnReservationAreaHeader = new JButton("Reservation Area");
-        btnReservationAreaHeader.setBounds(150, 70, 150, 30);
+        btnReservationAreaHeader.setBounds(90, 70, 150, 30);
         btnReservationAreaHeader.addActionListener(this);
         add(btnReservationAreaHeader);
 
         btnTypesOfRoom = new JButton("Types of Room");
-        btnTypesOfRoom.setBounds(325, 70, 150, 30);
+        btnTypesOfRoom.setBounds(260, 70, 150, 30);
         btnTypesOfRoom.addActionListener(this);
         add(btnTypesOfRoom);
 
         btnRoomSearch = new JButton("Room Search");
-        btnRoomSearch.setBounds(500, 70, 150, 30);
+        btnRoomSearch.setBounds(420, 70, 150, 30);
         btnRoomSearch.addActionListener(this);
         add(btnRoomSearch);
 
-        String[] columnNames = {"Name", "Contact", "Check-In", "Check-Out", "Room Type"};
-        Object[][] data = {
-                {"John Doe", "123456789", "2024-01-01", "2024-01-05", "Single"},
-                {"Jane Smith", "987654321", "2024-01-02", "2024-01-06", "Double"},
-                {"Bob Johnson", "456789123", "2024-01-03", "2024-01-07", "Suite"}
-        };
+        btnCancelReservation = new JButton("Cancel Reservation");
+        btnCancelReservation.setBounds(590, 70, 150, 30);
+        btnCancelReservation.addActionListener(this);
+        add(btnCancelReservation);
 
-        tableModel = new DefaultTableModel(data, columnNames);
+        String[] columnNames = {"Name", "Contact", "Check-In", "Check-Out", "Room Type"};
+        tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
         scrollPane.setBounds(100, 150, 600, 200);
@@ -73,20 +79,105 @@ public class Homepage extends JFrame implements ActionListener {
         btnAdd.addActionListener(this);
         add(btnAdd);
 
+      
+        loadReservations();
+
         setVisible(true);
     }
 
-    public Object[][] getReservations() {
-        int rowCount = tableModel.getRowCount();
-        int columnCount = tableModel.getColumnCount();
-        Object[][] reservations = new Object[rowCount][columnCount];
+    private void loadReservations() {
+        String query = "SELECT name, contact_number, check_in_date, check_out_date, room_type FROM reservations";
 
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < columnCount; j++) {
-                reservations[i][j] = tableModel.getValueAt(i, j);
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root", "123456");
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            tableModel.setRowCount(0); 
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String contact = rs.getString("contact_number");
+                Date checkInDate = rs.getDate("check_in_date");
+                Date checkOutDate = rs.getDate("check_out_date");
+                String roomType = rs.getString("room_type");
+
+                tableModel.addRow(new Object[]{
+                    name,
+                    contact,
+                    new SimpleDateFormat("yyyy-MM-dd").format(checkInDate),
+                    new SimpleDateFormat("yyyy-MM-dd").format(checkOutDate),
+                    roomType
+                });
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return reservations;
+    }
+
+    private void addReservation(String name, String contact, Date checkInDate, Date checkOutDate, String roomType) {
+        String query = "INSERT INTO reservations (name, contact_number, check_in_date, check_out_date, room_type) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root", "123456");
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, name);
+            stmt.setString(2, contact);
+            stmt.setDate(3, new java.sql.Date(checkInDate.getTime()));
+            stmt.setDate(4, new java.sql.Date(checkOutDate.getTime()));
+            stmt.setString(5, roomType);
+
+            stmt.executeUpdate();
+            loadReservations(); 
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void updateReservation(int rowIndex, String name, String contact, Date checkInDate, Date checkOutDate, String roomType) {
+        String query = "UPDATE reservations SET name = ?, contact_number = ?, check_in_date = ?, check_out_date = ?, room_type = ? WHERE name = ? AND contact_number = ? AND check_in_date = ? AND check_out_date = ? AND room_type = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root", "123456");
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, name);
+            stmt.setString(2, contact);
+            stmt.setDate(3, new java.sql.Date(checkInDate.getTime()));
+            stmt.setDate(4, new java.sql.Date(checkOutDate.getTime()));
+            stmt.setString(5, roomType);
+            
+            stmt.setString(6, (String) tableModel.getValueAt(rowIndex, 0));
+            stmt.setString(7, (String) tableModel.getValueAt(rowIndex, 1));
+            stmt.setDate(8, java.sql.Date.valueOf((String) tableModel.getValueAt(rowIndex, 2)));
+            stmt.setDate(9, java.sql.Date.valueOf((String) tableModel.getValueAt(rowIndex, 3)));
+            stmt.setString(10, (String) tableModel.getValueAt(rowIndex, 4));
+
+            stmt.executeUpdate();
+            loadReservations(); 
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void deleteReservation(int rowIndex) {
+        String query = "DELETE FROM reservations WHERE name = ? AND contact_number = ? AND check_in_date = ? AND check_out_date = ? AND room_type = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, (String) tableModel.getValueAt(rowIndex, 0));
+            stmt.setString(2, (String) tableModel.getValueAt(rowIndex, 1));
+            stmt.setDate(3, java.sql.Date.valueOf((String) tableModel.getValueAt(rowIndex, 2)));
+            stmt.setDate(4, java.sql.Date.valueOf((String) tableModel.getValueAt(rowIndex, 3)));
+            stmt.setString(5, (String) tableModel.getValueAt(rowIndex, 4));
+
+            stmt.executeUpdate();
+            loadReservations(); 
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -95,12 +186,15 @@ public class Homepage extends JFrame implements ActionListener {
             new HotelReservation().setVisible(true);
             dispose();
         } else if (e.getSource() == btnRoomSearch) {
-        new SEARCH77().setVisible(true); 
-        dispose(); 
-    } else if (e.getSource() == btnTypesOfRoom) {
-        new ROOMS().setVisible(true); 
-            dispose(); 
-    } else if (e.getSource() instanceof JButton) {
+            new SEARCH77().setVisible(true);
+            dispose();
+        } else if (e.getSource() == btnTypesOfRoom) {
+            new ROOMS().setVisible(true);
+            dispose();
+        } else if (e.getSource() == btnCancelReservation) {
+            new CancelReservation().setVisible(true);
+            dispose();
+        } else if (e.getSource() instanceof JButton) {
             JButton clickedButton = (JButton) e.getSource();
             String buttonText = clickedButton.getText();
 
@@ -108,9 +202,19 @@ public class Homepage extends JFrame implements ActionListener {
             switch (buttonText) {
                 case "Update":
                     if (selectedRow != -1) {
-                        String newName = JOptionPane.showInputDialog(this, "Enter new name:", tableModel.getValueAt(selectedRow, 0));
-                        if (newName != null && !newName.trim().isEmpty()) {
-                            tableModel.setValueAt(newName, selectedRow, 0);
+                        String name = JOptionPane.showInputDialog(this, "Enter new name:", tableModel.getValueAt(selectedRow, 0));
+                        String contact = JOptionPane.showInputDialog(this, "Enter new contact:", tableModel.getValueAt(selectedRow, 1));
+                        String checkInStr = JOptionPane.showInputDialog(this, "Enter new check-in date (YYYY-MM-DD):", tableModel.getValueAt(selectedRow, 2));
+                        String checkOutStr = JOptionPane.showInputDialog(this, "Enter new check-out date (YYYY-MM-DD):", tableModel.getValueAt(selectedRow, 3));
+                        String roomType = JOptionPane.showInputDialog(this, "Enter new room type:", tableModel.getValueAt(selectedRow, 4));
+
+                        try {
+                            Date checkInDate = java.sql.Date.valueOf(checkInStr);
+                            Date checkOutDate = java.sql.Date.valueOf(checkOutStr);
+
+                            updateReservation(selectedRow, name, contact, checkInDate, checkOutDate, roomType);
+                        } catch (IllegalArgumentException ex) {
+                            JOptionPane.showMessageDialog(this, "Invalid date format. Use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Please select a row to update");
@@ -119,7 +223,10 @@ public class Homepage extends JFrame implements ActionListener {
 
                 case "Delete":
                     if (selectedRow != -1) {
-                        tableModel.removeRow(selectedRow);
+                        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this reservation?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            deleteReservation(selectedRow);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(this, "Please select a row to delete");
                     }
@@ -128,23 +235,22 @@ public class Homepage extends JFrame implements ActionListener {
                 case "Add":
                     String name = JOptionPane.showInputDialog(this, "Enter Name:");
                     String contact = JOptionPane.showInputDialog(this, "Enter Contact:");
-                    String checkIn = JOptionPane.showInputDialog(this, "Enter Check-In Date:");
-                    String checkOut = JOptionPane.showInputDialog(this, "Enter Check-Out Date:");
+                    String checkInStr = JOptionPane.showInputDialog(this, "Enter Check-In Date (YYYY-MM-DD):");
+                    String checkOutStr = JOptionPane.showInputDialog(this, "Enter Check-Out Date (YYYY-MM-DD):");
                     String roomType = JOptionPane.showInputDialog(this, "Enter Room Type:");
 
-                    if (name != null && contact != null && checkIn != null && checkOut != null && roomType != null
-                            && !name.trim().isEmpty() && !contact.trim().isEmpty() && !checkIn.trim().isEmpty()
-                            && !checkOut.trim().isEmpty() && !roomType.trim().isEmpty()) {
-                        tableModel.addRow(new Object[]{name, contact, checkIn, checkOut, roomType});
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Please fill all fields");
+                    try {
+                        Date checkInDate = java.sql.Date.valueOf(checkInStr);
+                        Date checkOutDate = java.sql.Date.valueOf(checkOutStr);
+
+                        addReservation(name, contact, checkInDate, checkOutDate, roomType);
+                    } catch (IllegalArgumentException ex) {
+                        JOptionPane.showMessageDialog(this, "Invalid date format. Use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
             }
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(Homepage::new);
-    }
+   
 }
