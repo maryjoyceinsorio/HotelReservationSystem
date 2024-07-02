@@ -2,6 +2,8 @@ package reservationsystem;
 
 
 
+import java.awt.Color;
+import java.awt.Image;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +17,7 @@ import java.util.Date;
 
 public class SEARCH77 extends JFrame implements ActionListener {
 
-    private JLabel lblRoomType, lblCheckIn, lblCheckOut;
+    private JLabel lblRoomType, lblCheckIn, lblCheckOut, bg;
     private JComboBox<String> comboRoomType;
     private JSpinner spnCheckIn, spnCheckOut;
     private JButton btnSearch, btnReservation;
@@ -28,9 +30,15 @@ public class SEARCH77 extends JFrame implements ActionListener {
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        getContentPane().setBackground(Color.BLACK);
+        
+        bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\casan\\OneDrive\\Documents\\NetBeansProjects\\HotelReservationSystem\\ReservationSystem\\src\\reservationsystem\\bgimg.jpg").getImage().getScaledInstance(450,300, Image.SCALE_SMOOTH)));
+        bg.setBounds(100, 10, 500, 300);
 
         lblRoomType = new JLabel("Room Type:");
         lblRoomType.setBounds(50, 50, 100, 25);
+        lblRoomType.setForeground(Color.WHITE);
         add(lblRoomType);
 
         String[] roomTypes = {"Suite", "Two-person Room", "Balcony Room", 
@@ -41,6 +49,7 @@ public class SEARCH77 extends JFrame implements ActionListener {
 
         lblCheckIn = new JLabel("Check-in Date:");
         lblCheckIn.setBounds(50, 100, 100, 25);
+        lblCheckIn.setForeground(Color.WHITE);
         add(lblCheckIn);
 
         spnCheckIn = new JSpinner(new SpinnerDateModel());
@@ -51,6 +60,7 @@ public class SEARCH77 extends JFrame implements ActionListener {
 
         lblCheckOut = new JLabel("Check-out Date:");
         lblCheckOut.setBounds(50, 150, 100, 25);
+        lblCheckOut.setForeground(Color.WHITE);
         add(lblCheckOut);
 
         spnCheckOut = new JSpinner(new SpinnerDateModel());
@@ -73,15 +83,17 @@ public class SEARCH77 extends JFrame implements ActionListener {
         resultArea.setBounds(50, 250, 500, 100);
         resultArea.setEditable(false);
         add(resultArea);
+        
+        add(bg);
 
         connectToDatabase(); 
     }
 
     private void connectToDatabase() {
         try {
-            String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull"; // Replace with your DB name
+            String url = "jdbc:mysql://localhost:3306/hotelreservation"; 
             String user = "root"; 
-            String password = "123456"; 
+            String password = "12345"; 
 
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Database connected successfully.");

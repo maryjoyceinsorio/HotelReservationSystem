@@ -2,6 +2,7 @@ package reservationsystem;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -11,27 +12,32 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Homepage extends JFrame implements ActionListener {
-
+    private JLabel bg;
     private JTable table;
     private DefaultTableModel tableModel;
     private JScrollPane scrollPane;
     private JButton btnReservationAreaHeader, btnTypesOfRoom, btnRoomSearch, btnCancelReservation;
 
-    private final String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+    private final String url = "jdbc:mysql://localhost:3306/hotelreservation";
     private final String dbUser = "root";
-    private final String dbPassword = "123456"; 
+    private final String dbPassword = "12345"; 
 
     public Homepage() {
         setTitle("Home Page");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.BLACK);
+        
+        bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\casan\\OneDrive\\Documents\\NetBeansProjects\\HotelReservationSystem\\ReservationSystem\\src\\reservationsystem\\bgimg.jpg").getImage().getScaledInstance(450,300, Image.SCALE_SMOOTH)));
+        bg.setBounds(200, 100, 500, 300);
 
         JLabel lblWelcome = new JLabel("Welcome to Hotel Reservation System");
         lblWelcome.setBounds(150, 20, 500, 30);
         lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
         lblWelcome.setFont(lblWelcome.getFont().deriveFont(20.0f));
+        lblWelcome.setForeground(Color.WHITE);
         add(lblWelcome);
 
         btnReservationAreaHeader = new JButton("Reservation Area");
@@ -78,7 +84,7 @@ public class Homepage extends JFrame implements ActionListener {
         btnAdd.setFont(new Font("Arial", Font.BOLD, 15));
         btnAdd.addActionListener(this);
         add(btnAdd);
-
+        add(bg);
       
         loadReservations();
 
@@ -88,7 +94,7 @@ public class Homepage extends JFrame implements ActionListener {
     private void loadReservations() {
         String query = "SELECT name, contact_number, check_in_date, check_out_date, room_type FROM reservations";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root", "123456");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation", "root", "12345");
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
@@ -117,7 +123,7 @@ public class Homepage extends JFrame implements ActionListener {
     private void addReservation(String name, String contact, Date checkInDate, Date checkOutDate, String roomType) {
         String query = "INSERT INTO reservations (name, contact_number, check_in_date, check_out_date, room_type) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root", "123456");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation", "root", "12345");
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, name);
@@ -137,7 +143,7 @@ public class Homepage extends JFrame implements ActionListener {
     private void updateReservation(int rowIndex, String name, String contact, Date checkInDate, Date checkOutDate, String roomType) {
         String query = "UPDATE reservations SET name = ?, contact_number = ?, check_in_date = ?, check_out_date = ?, room_type = ? WHERE name = ? AND contact_number = ? AND check_in_date = ? AND check_out_date = ? AND room_type = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root", "123456");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation", "root", "12345");
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, name);
@@ -163,7 +169,7 @@ public class Homepage extends JFrame implements ActionListener {
     private void deleteReservation(int rowIndex) {
         String query = "DELETE FROM reservations WHERE name = ? AND contact_number = ? AND check_in_date = ? AND check_out_date = ? AND room_type = ?";
 
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+       try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation", "root", "12345");
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, (String) tableModel.getValueAt(rowIndex, 0));

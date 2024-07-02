@@ -3,6 +3,7 @@ package reservationsystem;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -17,55 +18,72 @@ import javax.swing.*;
  * Author: Insorio
  */
 public class GuestRegistration extends JFrame implements ActionListener {
-    private JLabel lblTitle, lbluser, lblpass, lblconfirmpass, lblFirstName, lblLastName, lblEmail;
+    private JLabel lblTitle, lbluser, lblpass, lblconfirmpass, lblFirstName, lblLastName, lblEmail,bg;
     private JTextField txtuser, txtFirstName, txtLastName, txtEmail;
     private JPasswordField txtpass, txtconfirmpass;
     private JButton btnsignup, btnback;
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/hotelreservation";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "123456";
+    private static final String DB_PASSWORD = "12345";
     
     public GuestRegistration() {
         setTitle("Guest Registration");
         setLayout(null);
-        setSize(500, 500);
+        setSize(700, 500);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.BLACK);
+        
+        bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\casan\\OneDrive\\Documents\\NetBeansProjects\\HotelReservationSystem\\ReservationSystem\\src\\reservationsystem\\bgimg.jpg").getImage().getScaledInstance(450,300, Image.SCALE_SMOOTH)));
+        bg.setBounds(100, 50, 500, 300);
         
         lblTitle = new JLabel("Sign-Up");
         lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
         lblTitle.setBounds(200, 30, 150, 30);
+          lblTitle.setForeground(Color.WHITE);
         
         lbluser = new JLabel("Username");
         lbluser.setBounds(100, 80, 100, 30);
-        txtuser = new JTextField();
+        lbluser.setForeground(Color.WHITE);
+        
+         txtuser = new JTextField();
         txtuser.setBounds(250, 80, 150, 30);
         
         lblpass = new JLabel("Password");
         lblpass.setBounds(100, 130, 100, 30);
+          lblpass.setForeground(Color.WHITE);
+        
         txtpass = new JPasswordField();
         txtpass.setBounds(250, 130, 150, 30);
         
         lblconfirmpass = new JLabel("Confirm Password");
         lblconfirmpass.setBounds(100, 180, 150, 30);
+       lblconfirmpass.setForeground(Color.WHITE);
+        
         txtconfirmpass = new JPasswordField();
         txtconfirmpass.setBounds(250, 180, 150, 30);
 
         lblFirstName = new JLabel("First Name");
         lblFirstName.setBounds(100, 230, 100, 30);
+          lblFirstName.setForeground(Color.WHITE);
+        
         txtFirstName = new JTextField();
         txtFirstName.setBounds(250, 230, 150, 30);
 
         lblLastName = new JLabel("Last Name");
         lblLastName.setBounds(100, 280, 100, 30);
+         lblLastName.setForeground(Color.WHITE);
+        
         txtLastName = new JTextField();
         txtLastName.setBounds(250, 280, 150, 30);
 
         lblEmail = new JLabel("Email");
         lblEmail.setBounds(100, 330, 100, 30);
+         lblEmail.setForeground(Color.WHITE);
+        
         txtEmail = new JTextField();
         txtEmail.setBounds(250, 330, 150, 30);
         
@@ -95,6 +113,7 @@ public class GuestRegistration extends JFrame implements ActionListener {
         add(txtEmail);
         add(btnsignup);
         add(btnback);
+        add(bg);
     }
 
     @Override
@@ -129,7 +148,7 @@ public class GuestRegistration extends JFrame implements ActionListener {
         PreparedStatement pstmt = null;
 
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull", "root","123456");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelreservation", "root","12345");
            
             String sql = "INSERT INTO guests (username, password, first_name, last_name, email) VALUES (?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);

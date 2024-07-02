@@ -10,6 +10,7 @@ package reservationsystem;
  * @author user
  */
 import java.awt.Color;
+import java.awt.Image;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +21,7 @@ import java.sql.SQLException;
 
 public class CancelReservation extends JFrame implements ActionListener {
 
-    private JLabel lblName;
+    private JLabel lblName, bg;
     private JTextField txtName;
     private JButton btnCancel;
     private JButton btnHome;
@@ -34,8 +35,12 @@ public class CancelReservation extends JFrame implements ActionListener {
         setSize(500, 500); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
-
+        getContentPane().setBackground(Color.BLACK);
+        
+        bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\casan\\OneDrive\\Documents\\NetBeansProjects\\HotelReservationSystem\\ReservationSystem\\src\\reservationsystem\\bgimg.jpg").getImage().getScaledInstance(450,300, Image.SCALE_SMOOTH)));
+        bg.setBounds(200, 100, 500, 300);
+       
 
         lblName = new JLabel("Reservation Name:");
         lblName.setBounds(50, 50, 150, 25);
@@ -59,15 +64,17 @@ public class CancelReservation extends JFrame implements ActionListener {
         resultArea.setBounds(50, 200, 400, 200);
         resultArea.setEditable(false);
         add(resultArea);
-
+        
+        add(bg);
+        
         connectToDatabase(); 
     }
 
     private void connectToDatabase() {
         try {
-            String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull"; // Replace with your DB name
+            String url = "jdbc:mysql://localhost:3306/hotelreservation"; 
             String user = "root"; 
-            String password = "123456"; 
+            String password = "12345"; 
 
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Database connected successfully.");

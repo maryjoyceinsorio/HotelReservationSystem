@@ -23,8 +23,8 @@ import java.util.Calendar;
 
 public class HotelReservation extends JFrame implements ActionListener {
 
-    private Container container;
-    private JLabel lbltitle, lblname, lblcheckIn, lblcheckOut, lblcontact;
+    
+    private JLabel lbltitle, lblname, lblcheckIn, lblcheckOut, lblcontact, bg;
     private JTextField txtname, txtcontact;
     private JButton btnNext;
     private JSpinner spnCheckIn, spnCheckOut;
@@ -34,77 +34,88 @@ public class HotelReservation extends JFrame implements ActionListener {
         connectToDatabase(); // Initialize database connection
 
         setTitle("Hotel Reservation");
-        setSize(600, 400);
+        setSize(700, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.BLACK);
 
-        container = getContentPane();
-        container.setLayout(null);
+        
+        setLayout(null);
+        
+        //bgimg
+        bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\casan\\OneDrive\\Documents\\NetBeansProjects\\HotelReservationSystem\\ReservationSystem\\src\\reservationsystem\\bgimg.jpg").getImage().getScaledInstance(450,300, Image.SCALE_SMOOTH)));
+        bg.setBounds(140, 10, 450, 300);
+         
 
-        lbltitle = new JLabel("Reservation Area");
+        lbltitle = new JLabel("Reservation Area",SwingConstants.CENTER);
         lbltitle.setFont(new Font("Arial", Font.BOLD, 24));
-        lbltitle.setBounds(150, 30, 300, 30);
-        container.add(lbltitle);
+        lbltitle.setBounds(0, 40, 700, 30);
+        lbltitle.setForeground(Color.WHITE);
+        add(lbltitle);
 
         lblname = new JLabel("Name:");
         lblname.setFont(new Font("Arial", Font.PLAIN, 18));
         lblname.setBounds(50, 80, 100, 30);
-        container.add(lblname);
+        lblname.setForeground(Color.WHITE);
+        add(lblname);
 
         txtname = new JTextField();
         txtname.setFont(new Font("Arial", Font.PLAIN, 18));
         txtname.setBounds(160, 80, 250, 25); 
-        container.add(txtname);
+        add(txtname);
 
         lblcheckIn = new JLabel("Check-in Date:");
         lblcheckIn.setFont(new Font("Arial", Font.PLAIN, 18));
         lblcheckIn.setBounds(50, 130, 150, 30);
-        container.add(lblcheckIn);
+        lblcheckIn.setForeground(Color.WHITE);
+        add(lblcheckIn);
 
         spnCheckIn = new JSpinner(new SpinnerDateModel());
         spnCheckIn.setFont(new Font("Arial", Font.PLAIN, 18));
         spnCheckIn.setBounds(210, 130, 200, 25);
         JSpinner.DateEditor checkInEditor = new JSpinner.DateEditor(spnCheckIn, "yyyy-MM-dd");
         spnCheckIn.setEditor(checkInEditor);
-        container.add(spnCheckIn);
+        add(spnCheckIn);
 
         lblcheckOut = new JLabel("Check-out Date:");
         lblcheckOut.setFont(new Font("Arial", Font.PLAIN, 18));
         lblcheckOut.setBounds(50, 180, 150, 30);
-        container.add(lblcheckOut);
+        lblcheckOut.setForeground(Color.WHITE);
+        add(lblcheckOut);
 
         spnCheckOut = new JSpinner(new SpinnerDateModel());
         spnCheckOut.setFont(new Font("Arial", Font.PLAIN, 18));
         spnCheckOut.setBounds(210, 180, 200, 25);
         JSpinner.DateEditor checkOutEditor = new JSpinner.DateEditor(spnCheckOut, "yyyy-MM-dd");
         spnCheckOut.setEditor(checkOutEditor);
-        container.add(spnCheckOut);
+        add(spnCheckOut);
 
         lblcontact = new JLabel("Contact Number:");
         lblcontact.setFont(new Font("Arial", Font.PLAIN, 18));
         lblcontact.setBounds(50, 230, 150, 30);
-        container.add(lblcontact);
+        lblcontact.setForeground(Color.WHITE);
+       add(lblcontact);
 
         txtcontact = new JTextField();
         txtcontact.setFont(new Font("Arial", Font.PLAIN, 18));
         txtcontact.setBounds(210, 230, 250, 25); 
-        container.add(txtcontact);
+        add(txtcontact);
 
         btnNext = new JButton("Next");
         btnNext.setFont(new Font("Arial", Font.PLAIN, 18));
         btnNext.setBounds(250, 290, 100, 30);
         btnNext.addActionListener(this);
-        container.add(btnNext);
-
+        add(btnNext);
+        add(bg);
         setVisible(true);
     }
 
     private void connectToDatabase() {
         try {
-            String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+            String url = "jdbc:mysql://localhost:3306/hotelreservation";
             String user = "root"; 
-            String password = "123456"; 
+            String password = "12345"; 
 
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Database connected successfully.");
@@ -154,9 +165,4 @@ public class HotelReservation extends JFrame implements ActionListener {
         return checkInDate.before(checkOutDate) || checkInDate.equals(checkOutDate);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new HotelReservation();
-        });
-    }
 }

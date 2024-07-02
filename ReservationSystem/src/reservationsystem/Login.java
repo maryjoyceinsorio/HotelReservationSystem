@@ -4,6 +4,7 @@ package reservationsystem;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -19,7 +20,7 @@ import javax.swing.*;
  */
 public class Login extends JFrame implements ActionListener {
 
-    private JLabel lbllog, lbluser, lblpass;
+    private JLabel lbllog, lbluser, lblpass, bg;
     private JTextField txtuser;
     private JPasswordField pass;
     private JButton btnlogin, btnback;
@@ -31,18 +32,25 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.BLACK);
+        
+        bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\casan\\OneDrive\\Documents\\NetBeansProjects\\HotelReservationSystem\\ReservationSystem\\src\\reservationsystem\\bgimg.jpg").getImage().getScaledInstance(450,300, Image.SCALE_SMOOTH)));
+        bg.setBounds(100, 10, 500, 300);
 
         lbllog = new JLabel("Login");
         lbllog.setBounds(250, 20, 100, 30);
+           lbllog.setForeground(Color.WHITE);
 
         lbluser = new JLabel("Username");
         lbluser.setBounds(100, 80, 100, 30);
+        lbluser.setForeground(Color.WHITE);
         txtuser = new JTextField();
         txtuser.setBounds(250, 80, 150, 30);
 
         lblpass = new JLabel("Password");
         lblpass.setBounds(100, 130, 100, 30);
+        lblpass.setForeground(Color.WHITE);
         pass = new JPasswordField();
         pass.setBounds(250, 130, 150, 30);
 
@@ -64,6 +72,7 @@ public class Login extends JFrame implements ActionListener {
         add(pass);
         add(btnlogin);
         add(btnback);
+        add(bg);
     }
 
     @Override
@@ -87,9 +96,9 @@ public class Login extends JFrame implements ActionListener {
 
     private boolean validateLogin(String username, String password) {
         boolean isValid = false;
-        String url = "jdbc:mysql://localhost:3306/hotelreservation?zeroDateTimeBehavior=convertToNull";
+        String url = "jdbc:mysql://localhost:3306/hotelreservation";
         String dbUser = "root"; 
-        String dbPassword = "123456"; 
+        String dbPassword = "12345"; 
 
         String query = "SELECT * FROM guests WHERE username = ? AND password = ?";
 
