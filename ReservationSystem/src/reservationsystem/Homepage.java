@@ -83,10 +83,10 @@ public class Homepage extends JFrame implements ActionListener {
 
     private JButton createButton(String text, int xPosition, int yPosition) {
         JButton button = new JButton(text);
-        button.setBounds(xPosition, yPosition, 200, 40); // Positioned below the welcome label
+        button.setBounds(xPosition, yPosition, 200, 40); 
         button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setForeground(Color.WHITE);
-        button.setBackground(new Color(0, 102, 204)); // A shade of blue
+        button.setBackground(new Color(0, 102, 204)); 
         button.setFocusPainted(false);
         button.addActionListener(this);
         return button;
